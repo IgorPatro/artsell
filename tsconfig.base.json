@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@art-nx/types": ["libs/types/src/index.ts"],
-      "@art-nx/ui": ["libs/ui/src/index.ts"]
+      "@art-nx/ui": ["libs/ui/src/index.ts"],
+      "@art-nx/zod": ["libs/zod/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

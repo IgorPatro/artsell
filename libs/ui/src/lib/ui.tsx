@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
-export interface UiProps {}
+export interface UiProps {
+  children: React.ReactNode | React.ReactNode[];
+}
 
 const StyledUi = styled.div`
   color: red;
@@ -9,11 +11,14 @@ const StyledUi = styled.div`
   font-size: 3rem;
 `;
 
-export function Ui(props: UiProps) {
+export function Ui({ children }: UiProps) {
   return (
-    <StyledUi>
-      <h1>Welcome to Ui!</h1>
-    </StyledUi>
+    <>
+      <StyledUi>
+        <h1>Welcome to Ui!</h1>
+      </StyledUi>
+      {children}
+    </>
   );
 }
 
