@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
@@ -12,11 +13,13 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.42.1",
     "react-is": "18.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "styled-components": "5.3.6",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactHTMLElement } from 'react';
 import styled from 'styled-components';
 import { type User } from '@art-nx/types';
 
@@ -17,7 +17,7 @@ const Styled = styled.button`
   }
 `;
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   onClick?: () => void;
 }
