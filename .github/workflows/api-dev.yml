@@ -1,4 +1,4 @@
-name: CI/CD
+name: API DEV
 
 on:
   # push:
@@ -31,11 +31,32 @@ jobs:
       - name: Build API
         run: yarn build:api
 
-      - name: Build Web
-        run: yarn build:web
+      - name: Create API build directory
+        run: cp dist/api build
+
+      - name: List directory
+        run: |
+          cd build
+          ls -la
+
+      - name: Copy database library
+        run: cp libs/database/prisma build/prisma
+
+      - name: List directory
+        run: |
+          pwd
+          ls -la
+
+      - name: Generate environment variables
+        run: |
+          touch .env
+          echo DATABASE_URL="test"
+
+      - name: Generate prisma client
+        run: npx prisma generate
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: dist
-          path: dist
+          name: build
+          path: build
