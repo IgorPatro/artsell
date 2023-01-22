@@ -31,8 +31,11 @@ jobs:
       - name: Build API
         run: yarn build:api
 
+      - name: List directory
+        run: ls -la
+
       - name: Create API build directory
-        run: cp dist/api build
+        run: cp -r dist/apps/api build
 
       - name: List directory
         run: |
@@ -40,20 +43,29 @@ jobs:
           ls -la
 
       - name: Copy database library
-        run: cp libs/database/prisma build/prisma
+        run: cp -r libs/database/prisma build/prisma
 
       - name: List directory
         run: |
+          cd build
           pwd
           ls -la
 
       - name: Generate environment variables
         run: |
+          cd build
           touch .env
-          echo DATABASE_URL="test"
+          echo DATABASE_URL="test" >> .env
+
+      - name: Install dependencies
+        run: |
+          cd build
+          yarn
 
       - name: Generate prisma client
-        run: npx prisma generate
+        run: |
+          cd build
+          npx prisma generate
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

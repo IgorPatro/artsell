@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev:api": "npx nx serve api",
+    "dev:web": "npx nx serve web",
     "generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
     "studio": "prisma studio --schema=./libs/database/prisma/schema.prisma",
     "build:api": "npx nx run api:build --configuration production --generatePackageJson --skip-nx-cache",
