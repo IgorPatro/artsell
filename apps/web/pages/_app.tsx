@@ -1,18 +1,31 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
-import './styles.css';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
+import { GlobalStyles } from '@art-nx/ui';
+import { Poppins } from '@next/font/google';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+const theme: DefaultTheme = {
+  colors: {
+    primary: '#111',
+    secondary: '#0070f3',
+  },
+};
+
+const poppins = Poppins({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '700'],
+});
+
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      <Head>
-        <title>Welcome to web!</title>
-      </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <main className={`main ${poppins.className}`}>
+          <Component {...pageProps} />
+        </main>
+      </ThemeProvider>
     </>
   );
-}
+};
 
-export default CustomApp;
+export default App;

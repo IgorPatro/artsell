@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { type User } from '@art-nx/types';
-import { Ui, Button } from '@art-nx/ui';
+import { Button } from '@art-nx/ui';
 import { type GetServerSideProps } from 'next';
 
 const StyledPage = styled.div``;
@@ -13,14 +13,17 @@ const user: User = {
   age: 21,
 };
 
-export function Index({ data }) {
+const IndexPage = ({ data }) => {
+  const [count, setCount] = React.useState(0);
+
+  console.log(process.env.DATABASE_URL);
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+
   return (
     <StyledPage>
-      <Ui>
-        <h1>Hello world! {user.name}</h1>
-      </Ui>
-      <Button onClick={() => console.log('This is my test func!')}>
-        Click me!
+      {count}
+      <Button onClick={() => setCount((prev) => (prev += 1))}>
+        Click me! {user.name}
       </Button>
       {data
         ? data.map((item) => (
@@ -31,9 +34,9 @@ export function Index({ data }) {
         : 'Brak danych :C'}
     </StyledPage>
   );
-}
+};
 
-export default Index;
+export default IndexPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos');
