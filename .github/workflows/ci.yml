@@ -29,10 +29,10 @@ jobs:
         run: yarn
 
       - name: Build API
-        run: npx nx run api:build --configuration production --generatePackageJson --skip-nx-cache
+        run: yarn build:api
 
       - name: Build Web
-        run: npx nx run web:build --configuration production
+        run: build:web
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
