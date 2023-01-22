@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common"
 import { createZodGuard } from "nestjs-zod"
 import { ZodSchema } from "nestjs-zod/z"
-import { messages } from "bff"
+import { messages } from "@art-nx/network"
 
 const ZodGuard = createZodGuard({
   createValidationException: (_error) => {

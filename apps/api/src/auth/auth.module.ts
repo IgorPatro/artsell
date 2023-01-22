@@ -19,9 +19,11 @@ import { ConfigModule } from "@nestjs/config"
       session: false,
     }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      // secret: process.env.JWT_SECRET,
+      secret: "THIS_IS_MY_TEMPORARY_SECRET",
       signOptions: {
-        expiresIn: process.env.EXPIRES_IN || "14 days",
+        // expiresIn: process.env.EXPIRES_IN || "14 days",
+        expiresIn: "14 days",
       },
     }),
   ],

@@ -1,11 +1,21 @@
-import { Controller, Get } from "@nestjs/common"
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+} from "@nestjs/common"
+import { Public } from "./decorators/public.decorator"
+import { RegisterSchema, type RegisterRequest, messages } from "@art-nx/network"
 import { PrismaService } from "./prisma.service"
+import { Validate } from "./decorators/validate.decorator"
 
 @Controller()
 export class AppController {
   constructor(private prisma: PrismaService) {}
 
-  // @Public()
+  @Public()
   @Get()
   welcome() {
     return `
@@ -28,22 +38,22 @@ export class AppController {
     `
   }
 
-  // @Public()
-  // @Validate(RegisterSchema)
-  // @Post('test')
-  // async testPost(@Body() body: RegisterRequest) {
-  //   const user = await this.prisma.user.findFirst({
-  //     where: { email: body.email },
-  //   });
+  @Public()
+  @Validate(RegisterSchema as any)
+  @Post("test")
+  async testPost(@Body() body: RegisterRequest) {
+    const user = await this.prisma.user.findFirst({
+      where: { email: body.email },
+    })
 
-  //   if (!user) {
-  //     throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND);
-  //   }
+    if (!user) {
+      throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND)
+    }
 
-  //   return user;
-  // }
+    return user
+  }
 
-  // @Public()
+  @Public()
   @Get("users-test")
   async testGet() {
     const users = await this.prisma.user.findMany()

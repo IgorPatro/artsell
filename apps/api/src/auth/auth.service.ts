@@ -3,8 +3,8 @@ import { UsersService } from "../users/users.service"
 import { JwtService } from "@nestjs/jwt"
 import { hash } from "bcrypt"
 import { PrismaService } from "../prisma.service"
-import { LoginRequest, RegisterRequest, messages } from "bff"
-import { User } from "db"
+import { LoginRequest, RegisterRequest, messages } from "@art-nx/network"
+import { User } from "@art-nx/database"
 
 @Injectable()
 export class AuthService {

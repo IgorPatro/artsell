@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "npx nx run-many --target=serve --projects=api,web --parallel --maxParallel=2",
     "dev:api": "npx nx serve api",
     "dev:web": "npx nx serve web",
     "generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",

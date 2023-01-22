@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { type User } from "@art-nx/types"
+import { type User } from "@art-nx/network"
 import { Button } from "@art-nx/ui"
 import { type GetServerSideProps } from "next"
 
@@ -8,9 +8,11 @@ const StyledPage = styled.div``
 
 const user: User = {
   id: "888141-asfaf-15fasd-551",
-  name: "John Doe",
+  firstName: "John",
+  lastName: "Doe",
   email: "john.doe@gmail.com",
-  age: 21,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 }
 
 const IndexPage = ({ data }) => {
@@ -23,7 +25,7 @@ const IndexPage = ({ data }) => {
     <StyledPage>
       {count}
       <Button onClick={() => setCount((prev) => (prev += 1))}>
-        Click me! {user.name}
+        Click me! {user.firstName}
       </Button>
       {data
         ? data.map((item) => (

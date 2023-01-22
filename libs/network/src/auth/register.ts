@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { User } from "../users/user"
 
 export const RegisterSchema = z
   .object({
@@ -20,3 +21,5 @@ export const RegisterSchema = z
   })
 
 export type RegisterRequest = z.infer<typeof RegisterSchema>
+
+export type RegisterResponse = User
