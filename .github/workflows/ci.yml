@@ -32,7 +32,7 @@ jobs:
         run: yarn build:api
 
       - name: Build Web
-        run: build:web
+        run: yarn build:web
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
