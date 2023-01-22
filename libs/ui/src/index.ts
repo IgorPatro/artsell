@@ -1,2 +1,2 @@
-export * from './Button/Button';
-export * from './GlobalStyles/GlobalStyles';
+export * from "./Button/Button"
+export * from "./GlobalStyles/GlobalStyles"

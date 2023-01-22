@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { Controller, Get } from "@nestjs/common"
+import { PrismaService } from "./prisma.service"
 
 @Controller()
 export class AppController {
@@ -25,7 +25,7 @@ export class AppController {
           <h5>PS: We love Black ❤</h5>
         </body>
       </html>
-    `;
+    `
   }
 
   // @Public()
@@ -44,12 +44,12 @@ export class AppController {
   // }
 
   // @Public()
-  @Get('users-test')
+  @Get("users-test")
   async testGet() {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany()
 
     // throw new HttpException('TEST', 909);
 
-    return users;
+    return users
   }
 }

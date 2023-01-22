@@ -1,2 +1,2 @@
-export * from './lib/zod';
-export * from './register/register';
+export * from "./lib/zod"
+export * from "./register/register"

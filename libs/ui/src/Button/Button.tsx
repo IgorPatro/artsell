@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { type User } from '@art-nx/types';
+import React from "react"
+import styled from "styled-components"
+import { type User } from "@art-nx/types"
 
 const Styled = styled.button`
   background-color: red;
@@ -15,26 +15,26 @@ const Styled = styled.button`
   &:hover {
     background-color: #000;
   }
-`;
+`
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  onClick?: () => void;
+  children: React.ReactNode
+  onClick?: () => void
 }
 
 export const Button = ({ children, onClick }: Props) => {
   const user: User = {
-    id: '888141-asfaf-15fasd-551',
-    name: 'John Doe',
-    email: 'john.doe@gmail.com',
+    id: "888141-asfaf-15fasd-551",
+    name: "John Doe",
+    email: "john.doe@gmail.com",
     age: 21,
-  };
+  }
 
   return (
     <Styled onClick={onClick}>
       {children} - {user.id}
     </Styled>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

@@ -1,3 +1,3 @@
 export function zod(): string {
-  return 'zod';
+  return "zod"
 }
