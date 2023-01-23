@@ -23,52 +23,40 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
-          cache: 'yarn'
+          cache: "yarn"
 
-      - name: Install dependencies
-        run: yarn
+      - name: Upload files (TEST)
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          SOURCE: "apps/api"
+          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          TARGET: "/home/deployer/api"
 
-      - name: Build API
-        run: yarn build:api
+      # - name: Install dependencies
+      #   run: yarn
 
-      - name: List directory
-        run: ls -la
+      # - name: Generate Prisma Client
+      #   run: yarn generate
 
-      - name: Create API build directory
-        run: cp -r dist/apps/api build
+      # - name: Build API
+      #   run: yarn build:api
 
-      - name: List directory
-        run: |
-          cd build
-          ls -la
+      # - name: Create API build directory
+      #   run: cp -r dist/apps/api build
 
-      - name: Copy database library
-        run: cp -r libs/database/prisma build/prisma
+      # - name: Copy database library
+      #   run: cp -r libs/database/prisma build/prisma
 
-      - name: List directory
-        run: |
-          cd build
-          pwd
-          ls -la
+      # - name: Generate environment variables
+      #   run: |
+      #     cd build
+      #     touch .env
+      #     echo DATABASE_URL="test" >> .env
 
-      - name: Generate environment variables
-        run: |
-          cd build
-          touch .env
-          echo DATABASE_URL="test" >> .env
-
-      - name: Install dependencies
-        run: |
-          cd build
-          yarn
-
-      - name: Generate prisma client
-        run: |
-          cd build
-          npx prisma generate
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: build
+      #     path: build
