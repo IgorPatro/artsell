@@ -25,38 +25,49 @@ jobs:
           node-version: 16.15.0
           cache: "yarn"
 
-      - name: Upload files (TEST)
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          SOURCE: "apps/api"
-          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-          TARGET: "/home/deployer/api"
+      - name: Install dependencies
+        run: yarn
 
-      # - name: Install dependencies
-      #   run: yarn
+      - name: Generate Prisma Client
+        run: yarn generate
 
-      # - name: Generate Prisma Client
-      #   run: yarn generate
+      - name: Build API
+        run: yarn build:api
 
-      # - name: Build API
-      #   run: yarn build:api
+      - name: Create API build directory
+        run: cp -r dist/apps/api build
 
-      # - name: Create API build directory
-      #   run: cp -r dist/apps/api build
+      - name: Copy database library
+        run: cp -r libs/database/prisma build/prisma
 
-      # - name: Copy database library
-      #   run: cp -r libs/database/prisma build/prisma
-
-      # - name: Generate environment variables
-      #   run: |
-      #     cd build
-      #     touch .env
-      #     echo DATABASE_URL="test" >> .env
+      - name: Generate environment variables
+        run: |
+          cd build
+          touch .env
+          echo DATABASE_URL="test" >> .env
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v2
       #   with:
       #     name: build
       #     path: build
+
+      - name: Upload files
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          SOURCE: "build/*"
+          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          TARGET: "/home/deployer/api"
+
+      - name: Install remote packages and generate prisma client
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          script: |
+            cd /home/deployer/api/
+            yarn
+            yarn generate
