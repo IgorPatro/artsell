@@ -25,6 +25,12 @@ jobs:
           node-version: 16.15.0
           cache: "yarn"
 
+      - name: Generate environment variables
+        run: |
+          touch .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo NEXT_PUBLIC_API_URL="http://artsell-api.modernitycloud.pl" >> .env
+
       - name: Install dependencies
         run: yarn
 
@@ -86,4 +92,4 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             cd /home/deployer/web/
-            pm2 start yarn --name WEB --interpreter bash -- start
+            pm2 start yarn --name WEB -- start
