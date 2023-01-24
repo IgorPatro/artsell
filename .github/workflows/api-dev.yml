@@ -66,7 +66,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          SOURCE: "build/*"
+          SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
           REMOTE_USER: ${{ secrets.DEPLOY_USER }}
           TARGET: "/home/deployer/api"
@@ -80,7 +80,7 @@ jobs:
           script: |
             cd /home/deployer/api/
             yarn
-            yarn generate
+            npx prisma generate
 
       - name: Start application
         uses: appleboy/ssh-action@master

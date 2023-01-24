@@ -1,4 +1,4 @@
-import { RegisterSchema, type RegisterRequest } from "@art-nx/zod"
+import { RegisterSchema, type RegisterRequest } from "@art-nx/network"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@art-nx/ui"
