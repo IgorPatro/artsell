@@ -1,4 +1,4 @@
-name: API DEV
+name: WEB DEV
 
 on:
   # push:
@@ -28,23 +28,20 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Generate Prisma Client
-        run: yarn generate
+      # - name: Generate Prisma Client
+      #   run: yarn generate
 
-      - name: Build API
-        run: yarn build:api
+      - name: Build WEB
+        run: yarn build:web
 
-      - name: Create API build directory
-        run: cp -r dist/apps/api build
+      - name: Create WEB build directory
+        run: cp -r dist/apps/web build
 
-      - name: Copy database library
-        run: cp -r libs/database/prisma build/prisma
-
-      - name: Generate environment variables
-        run: |
-          cd build
-          touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+      # - name: Generate environment variables
+      #   run: |
+      #     cd build
+      #     touch .env
+      #     echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v2
@@ -59,8 +56,8 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            cd /home/deployer/api/
-            pm2 stop API || true
+            cd /home/deployer/web/
+            pm2 stop WEB || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
@@ -69,18 +66,17 @@ jobs:
           SOURCE: "build/*"
           REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
           REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-          TARGET: "/home/deployer/api"
+          TARGET: "/home/deployer/web"
 
-      - name: Install remote packages and generate prisma client
+      - name: Install remote packages
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/web/
             yarn
-            yarn generate
 
       - name: Start application
         uses: appleboy/ssh-action@master
@@ -89,5 +85,5 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            cd /home/deployer/api/
-            pm2 start main.js --name API
+            cd /home/deployer/web/
+            pm2 start yarn --name WEB --interpreter bash -- start
