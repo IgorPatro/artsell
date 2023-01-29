@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { backendUrl } from "../utils/constants"
 import { parseCookies } from "nookies"
 import { sessionCookieName } from "../utils/constants"
-import { User } from "bff"
+import { User } from "@art-nx/network"
 
 const Navigation = () => {
   const { [sessionCookieName]: session } = parseCookies()

@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next"
 import { destroyCookie } from "nookies"
 import { sessionCookieName, backendUrl } from "../utils/constants"
-import { User } from "bff"
+import { User } from "@art-nx/network"
 
 export const getServerSession = async (ctx: GetServerSidePropsContext) => {
   const sessionCookie = ctx.req.cookies[sessionCookieName]
