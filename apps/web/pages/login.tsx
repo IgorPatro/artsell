@@ -1,8 +1,8 @@
 import React from "react"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
-import { getServerSession } from "../src/hooks//getServerSession"
-import { backendUrl, sessionCookieName } from "../src/utils//constants"
+import { getServerSession } from "../src/hooks/getServerSession"
+import { backendUrl, sessionCookieName } from "../src/utils/constants"
 import { setCookie } from "nookies"
 import { Button } from "@art-nx/ui"
 
