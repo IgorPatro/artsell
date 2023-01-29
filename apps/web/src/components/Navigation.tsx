@@ -1,8 +1,8 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
-import { backendUrl } from "utils/constants"
+import { backendUrl } from "../utils/constants"
 import { parseCookies } from "nookies"
-import { sessionCookieName } from "utils/constants"
+import { sessionCookieName } from "../utils/constants"
 import { User } from "bff"
 
 const Navigation = () => {
