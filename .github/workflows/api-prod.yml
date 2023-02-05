@@ -1,4 +1,4 @@
-name: API DEV
+name: API PROD
 
 on:
   # push:
@@ -44,7 +44,7 @@ jobs:
         run: |
           cd build
           touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL_DEV }} >> .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL_PROD }} >> .env
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v2
