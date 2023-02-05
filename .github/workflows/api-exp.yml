@@ -1,4 +1,4 @@
-name: API DEV
+name: API EXP
 
 on:
   # push:
@@ -44,7 +44,7 @@ jobs:
         run: |
           cd build
           touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL_DEV }} >> .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL_EXP }} >> .env
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v2
@@ -82,7 +82,7 @@ jobs:
             yarn
             npx prisma generate
 
-      - name: Apply database migrations
+      - name: Force push database schema
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -90,7 +90,7 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             cd /home/deployer/api/
-            npx prisma migrate deploy
+            npx prisma db push --accept-data-loss --force-reset
 
       - name: Start application
         uses: appleboy/ssh-action@master

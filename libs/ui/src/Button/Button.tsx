@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { type User } from "@art-nx/types"
 
 const Styled = styled.button`
   background-color: red;
@@ -23,18 +22,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = ({ children, onClick }: Props) => {
-  const user: User = {
-    id: "888141-asfaf-15fasd-551",
-    name: "John Doe",
-    email: "john.doe@gmail.com",
-    age: 21,
-  }
-
-  return (
-    <Styled onClick={onClick}>
-      {children} - {user.id}
-    </Styled>
-  )
+  return <Styled onClick={onClick}>{children}</Styled>
 }
 
 export default Button
