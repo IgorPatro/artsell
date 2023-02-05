@@ -1,16 +1,17 @@
 import { AppProps } from "next/app"
-import { ThemeProvider, DefaultTheme } from "styled-components"
+import { ThemeProvider } from "styled-components"
 import { GlobalStyles } from "@art-nx/ui"
+import { theme } from "@art-nx/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Navigation from "../src/components/Navigation"
 
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#111",
-    secondary: "#0070f3",
-  },
-}
+// const theme: DefaultTheme = {
+//   colors: {
+//     primary: "#111",
+//     secondary: "#0070f3",
+//   },
+// }
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
