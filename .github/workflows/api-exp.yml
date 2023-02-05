@@ -1,10 +1,6 @@
-name: API EXP
+name: API Experiemental
 
 on:
-  # push:
-  #   branches: ["master", "develop"]
-  # pull_request:
-  #   types: [opened, synchronize]
   workflow_dispatch:
 
 jobs:
@@ -44,20 +40,14 @@ jobs:
         run: |
           cd build
           touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL_EXP }} >> .env
-
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build
-      #     path: build
+          echo DATABASE_URL=${{ vars.DATABASE_URL_EXP }} >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
             cd /home/deployer/api/
             pm2 stop API || true
@@ -65,18 +55,18 @@ jobs:
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_DEV_EXP }}
           SOURCE: "build/"
-          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
           TARGET: "/home/deployer/api"
 
       - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
             cd /home/deployer/api/
             yarn
@@ -85,9 +75,9 @@ jobs:
       - name: Force push database schema
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
             cd /home/deployer/api/
             npx prisma db push --accept-data-loss --force-reset
@@ -95,9 +85,9 @@ jobs:
       - name: Start application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
             cd /home/deployer/api/
             pm2 start main.js --name API

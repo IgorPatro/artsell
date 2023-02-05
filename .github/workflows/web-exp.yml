@@ -1,8 +1,7 @@
-name: WEB Develop
+name: WEB Experiemental
 
 on:
   workflow_dispatch:
-    branches: ["develop"]
 
 jobs:
   build:
@@ -25,7 +24,7 @@ jobs:
       - name: Generate environment variables
         run: |
           touch .env
-          echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL_DEV }} >> .env
+          echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL_EXP }} >> .env
 
       - name: Install dependencies
         run: yarn
