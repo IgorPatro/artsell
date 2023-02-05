@@ -1,11 +1,12 @@
 const breakpoints = {
     xs: 25, // 400px
-    s: 31.25, // 500px
-    m: 48, // 768px
-    l: 64, // 1024px
-    xl: 80, // 1280px
+    sm: 31.25, // 500px
+    s: 48, // 768px
+    m: 64, // 1024px
+    l: 80, // 1280px
+    xl: 96, // 1536px
     xxl: 110, // 1760px
-    xxxl: 150, // 2400px
+    xxxl: 150, //2400
 }
 
 export const theme = {
@@ -34,3 +35,4 @@ export const theme = {
       xxxl: `@media (min-width: ${breakpoints.xxxl}em)`
     }
   }
+
