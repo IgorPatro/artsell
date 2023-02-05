@@ -25,7 +25,7 @@ const IndexPage = () => {
       </Button>
       <br />
       {count}
-      <Input />
+      <Input placeholder="Search Test" />
     </>
   )
 }

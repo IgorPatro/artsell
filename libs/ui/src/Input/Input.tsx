@@ -13,8 +13,12 @@ const InputTest = styled.input`
   }
 `
 
-export const Input = () => {
-  return <InputTest />
+interface inputProps {
+  placeholder?: string
+}
+
+export const Input = (props: inputProps) => {
+  return <InputTest placeholder={props.placeholder} />
 }
 
 export default Input
