@@ -2,6 +2,7 @@ import React from "react"
 import { type User } from "@art-nx/network"
 import { Button } from "@art-nx/ui"
 import { Input } from "@art-nx/ui"
+import { Navigation } from "@art-nx/ui"
 import { backendUrl } from "../src/utils/constants"
 
 const user: User = {
@@ -20,12 +21,13 @@ const IndexPage = () => {
 
   return (
     <>
-      <Button onClick={() => setCount((prev) => (prev += 1))}>
+      {/* <Button onClick={() => setCount((prev) => (prev += 1))}>
         Click me! {user.firstName}
       </Button>
       <br />
       {count}
-      <Input placeholder="Search Test" />
+      <Input placeholder="Search Test" /> */}
+      <Navigation />
     </>
   )
 }

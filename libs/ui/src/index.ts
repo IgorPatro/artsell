@@ -1,3 +1,4 @@
+export {default as Navigation} from "./Navigation/Navigation"
 export * from "./Button/Button"
 export * from "./GlobalStyles/GlobalStyles"
 export * from "./GlobalStyles/theme"
