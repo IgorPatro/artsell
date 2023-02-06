@@ -1,6 +1,7 @@
 import React from "react"
 import HamburgerButton from "./HamburgerButton/HamburgerButton"
 import MobileNavigation from "./MobileNavigation/MobileNavigation"
+import Input from "../Input/Input"
 import * as S from "./Navigation.styled"
 import Link from "next/link"
 
@@ -16,6 +17,7 @@ const Navigation = () => {
       <S.NavigationContent>
         <Link href="/">ArtSell</Link>
         <S.NavigationList>
+          <Input />
           <S.NavigationItem>TestContent</S.NavigationItem>
         </S.NavigationList>
         <HamburgerButton
