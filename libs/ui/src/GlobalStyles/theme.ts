@@ -1,12 +1,8 @@
 const breakpoints = {
-    xs: 25, // 400px
-    sm: 31.25, // 500px
-    s: 48, // 768px
-    m: 64, // 1024px
-    l: 80, // 1280px
-    xl: 96, // 1536px
-    xxl: 110, // 1760px
-    xxxl: 150, //2400
+    phone: 26.25, // 420px
+    tablet: 48, // 768px
+    laptop: 64, // 1024px
+    desktop: 96, // 1536px
 }
 
 export const theme = {
@@ -26,13 +22,10 @@ export const theme = {
       foggedwhite: "#F5F5F5"
     },
     MQ: {
-      xs: `@media (min-width: ${breakpoints.xs}em)`,
-      s: `@media (min-width: ${breakpoints.s}em)`,
-      m: `@media (min-width: ${breakpoints.m}em)`,
-      l: `@media (min-width: ${breakpoints.l}em)`,
-      xl: `@media (min-width: ${breakpoints.xl}em)`,
-      xxl: `@media (min-width: ${breakpoints.xxl}em)`,
-      xxxl: `@media (min-width: ${breakpoints.xxxl}em)`
+      phone: `@media (min-width: ${breakpoints.phone}em)`,
+      tablet: `@media (min-width: ${breakpoints.tablet}em)`,
+      laptop: `@media (min-width: ${breakpoints.laptop}em)`,
+      desktop: `@media (min-width: ${breakpoints.desktop}em)`,
     }
   }
 
