@@ -1,8 +1,7 @@
-name: WEB Develop
+name: API Experiemental
 
 on:
   workflow_dispatch:
-    branches: ["develop"]
 
 jobs:
   build:
@@ -22,22 +21,26 @@ jobs:
           node-version: 16.15.0
           cache: "yarn"
 
-      - name: Generate environment variables
-        run: |
-          touch .env
-          echo NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL_DEV }} >> .env
-
       - name: Install dependencies
         run: yarn
 
       - name: Generate Prisma Client
-        run: yarn generate
+        run: yarn db:generate
 
-      - name: Build WEB
-        run: yarn build:web
+      - name: Build API
+        run: yarn build:api
 
-      - name: Create WEB build directory
-        run: cp -r dist/apps/web build
+      - name: Create API build directory
+        run: cp -r dist/apps/api build
+
+      - name: Copy database library
+        run: cp -r libs/database/prisma build/prisma
+
+      - name: Generate environment variables
+        run: |
+          cd build
+          touch .env
+          echo DATABASE_URL=${{ vars.DATABASE_URL_EXP }} >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
@@ -46,8 +49,8 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/web/
-            pm2 stop WEB || true
+            cd /home/deployer/api/
+            pm2 stop API || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
@@ -56,17 +59,28 @@ jobs:
           SOURCE: "build/"
           REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          TARGET: "/home/deployer/web"
+          TARGET: "/home/deployer/api"
 
-      - name: Install remote packages
+      - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
         with:
           host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/web/
+            cd /home/deployer/api/
             yarn
+            npx prisma generate
+
+      - name: Force push database schema
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          script: |
+            cd /home/deployer/api/
+            npx prisma db push --accept-data-loss --force-reset
 
       - name: Start application
         uses: appleboy/ssh-action@master
@@ -75,5 +89,5 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/web/
-            pm2 start yarn --name WEB -- start
+            cd /home/deployer/api/
+            pm2 start main.js --name API

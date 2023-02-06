@@ -1,14 +1,18 @@
 {
-  "name": "art-nx",
+  "name": "artsell",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "npx nx run-many --target=serve --projects=api,web --parallel --maxParallel=2",
     "dev:api": "npx nx serve api",
     "dev:web": "npx nx serve web",
-    "generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
-    "push": "prisma db push --schema=./libs/database/prisma/schema.prisma",
     "studio": "prisma studio --schema=./libs/database/prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
+    "db:push": "prisma db push --schema=./libs/database/prisma/schema.prisma",
+    "db:push-force": "prisma db push --schema=./libs/database/prisma/schema.prisma --accept-data-loss --force-reset",
+    "db:migrate": "prisma migrate deploy --schema=./libs/database/prisma/schema.prisma",
+    "db:migrate-dev": "prisma migrate dev --schema=./libs/database/prisma/schema.prisma",
+    "db:reset": "prisma migrate reset",
     "build:api": "npx nx run api:build --configuration production --generatePackageJson --skip-nx-cache",
     "build:web": "npx nx run web:build --configuration production",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
