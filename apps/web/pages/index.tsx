@@ -1,7 +1,6 @@
 import React from "react"
 import { type User } from "@art-nx/network"
 import { Button } from "@art-nx/ui"
-import { backendUrl } from "../src/utils/constants"
 
 const user: User = {
   id: "888141-asfaf-15fasd-551",
@@ -14,8 +13,6 @@ const user: User = {
 
 const IndexPage = () => {
   const [count, setCount] = React.useState(0)
-
-  console.log(backendUrl)
 
   return (
     <>
