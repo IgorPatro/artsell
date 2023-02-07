@@ -1,6 +1,6 @@
 import React from "react"
-import { type User } from "@art-nx/network"
-import { Button } from "@art-nx/ui"
+import { type User } from "@artsell/network"
+import { Button } from "@artsell/ui"
 
 const user: User = {
   id: "888141-asfaf-15fasd-551",

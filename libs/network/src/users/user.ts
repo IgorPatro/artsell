@@ -1,3 +1,3 @@
-import { User as UserDB } from "@art-nx/database"
+import { User as UserDB } from "@artsell/database"
 
 export type User = Omit<UserDB, "password">

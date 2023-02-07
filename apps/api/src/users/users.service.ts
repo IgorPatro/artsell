@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { compare } from "bcrypt"
 import { PrismaService } from "../prisma.service"
-import { LoginRequest, messages } from "@art-nx/network"
-import { User } from "@art-nx/database"
+import { LoginRequest, messages } from "@artsell/network"
+import { User } from "@artsell/database"
 
 @Injectable()
 export class UsersService {

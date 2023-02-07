@@ -4,8 +4,8 @@ import { useRouter } from "next/router"
 import { getServerSession } from "../src/hooks/getServerSession"
 import { sessionCookieName } from "../src/utils/constants"
 import { setCookie } from "nookies"
-import { Button } from "@art-nx/ui"
-import { backendUrl } from "@art-nx/network"
+import { Button } from "@artsell/ui"
+import { backendUrl } from "@artsell/network"
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("")

@@ -1,6 +1,6 @@
 import { AppProps } from "next/app"
 import { ThemeProvider, DefaultTheme } from "styled-components"
-import { GlobalStyles } from "@art-nx/ui"
+import { GlobalStyles } from "@artsell/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Navigation from "../src/components/Navigation"
