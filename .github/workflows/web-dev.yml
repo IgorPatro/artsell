@@ -31,7 +31,7 @@ jobs:
         run: yarn
 
       - name: Generate Prisma Client
-        run: yarn generate
+        run: yarn db:generate
 
       - name: Build WEB
         run: yarn build:web

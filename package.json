@@ -6,7 +6,7 @@
     "dev": "npx nx run-many --target=serve --projects=api,web --parallel --maxParallel=2",
     "dev:api": "npx nx serve api",
     "dev:web": "npx nx serve web",
-    "studio": "prisma studio --schema=./libs/database/prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=./libs/database/prisma/schema.prisma",
     "db:generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
     "db:push": "prisma db push --schema=./libs/database/prisma/schema.prisma",
     "db:push-force": "prisma db push --schema=./libs/database/prisma/schema.prisma --accept-data-loss --force-reset",
