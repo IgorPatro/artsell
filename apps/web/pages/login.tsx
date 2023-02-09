@@ -2,9 +2,10 @@ import React from "react"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 import { getServerSession } from "../src/hooks/getServerSession"
-import { backendUrl, sessionCookieName } from "../src/utils/constants"
+import { sessionCookieName } from "../src/utils/constants"
 import { setCookie } from "nookies"
-import { Button } from "@art-nx/ui"
+import { Button } from "@artsell/ui"
+import { backendUrl } from "@artsell/network"
 
 const LoginPage = () => {
   const [email, setEmail] = React.useState("")

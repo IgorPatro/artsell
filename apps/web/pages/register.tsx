@@ -2,7 +2,7 @@ import {
   RegisterSchema,
   type RegisterRequest,
   RegisterResponse,
-} from "@art-nx/network"
+} from "@artsell/network"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { GetServerSideProps } from "next"
@@ -10,7 +10,7 @@ import { getServerSession } from "../src/hooks/getServerSession"
 import { useRouter } from "next/router"
 import { useMutation } from "@tanstack/react-query"
 import { network } from "../src/utils/network"
-import { Button } from "@art-nx/ui"
+import { Button } from "@artsell/ui"
 
 const RegisterPage = () => {
   const {

@@ -1,7 +1,7 @@
 import { Controller, Get, Req } from "@nestjs/common"
 import { UsersService } from "./users.service"
 import { Request } from "express"
-import { User } from "@art-nx/database"
+import { User } from "@artsell/database"
 
 @Controller("users")
 export class UsersController {

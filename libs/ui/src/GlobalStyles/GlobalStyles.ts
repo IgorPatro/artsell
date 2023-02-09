@@ -49,14 +49,6 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: inherit;
   }
 
-  b {
-    font-weight: 700;
-  }
-
-  strong {
-    font-weight: inherit;
-  }
-
   img {
     border-style: none;
   }

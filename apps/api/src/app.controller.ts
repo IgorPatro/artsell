@@ -7,7 +7,11 @@ import {
   HttpStatus,
 } from "@nestjs/common"
 import { Public } from "./decorators/public.decorator"
-import { RegisterSchema, type RegisterRequest, messages } from "@art-nx/network"
+import {
+  RegisterSchema,
+  type RegisterRequest,
+  messages,
+} from "@artsell/network"
 import { PrismaService } from "./prisma.service"
 import { Validate } from "./decorators/validate.decorator"
 

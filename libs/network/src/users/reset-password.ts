@@ -1,4 +1,4 @@
-import { z } from "nestjs-zod/z"
+import { z } from "zod"
 
 export const ResetPasswordSchema = z.object({
   old_password: z.string(),

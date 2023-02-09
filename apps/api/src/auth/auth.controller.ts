@@ -7,7 +7,7 @@ import {
   RegisterRequest,
   LoginSchema,
   LoginRequest,
-} from "@art-nx/network"
+} from "@artsell/network"
 
 @Controller("auth")
 export class AuthController {

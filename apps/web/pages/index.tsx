@@ -1,35 +1,31 @@
-import React from "react"
-import { type User } from "@art-nx/network"
-import { Button } from "@art-nx/ui"
-import { Input } from "@art-nx/ui"
-import { Navigation } from "@art-nx/ui"
-import { backendUrl } from "../src/utils/constants"
+import network, { Product } from "@artsell/network"
+import Link from "next/link"
 
-const user: User = {
-  id: "888141-asfaf-15fasd-551",
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@gmail.com",
-  createdAt: new Date(),
-  updatedAt: new Date(),
+interface Props {
+  data: Product[]
 }
 
-const IndexPage = () => {
-  const [count, setCount] = React.useState(0)
-
-  console.log(backendUrl)
-
+const IndexPage = ({ data }: Props) => {
   return (
     <>
-      {/* <Button onClick={() => setCount((prev) => (prev += 1))}>
-        Click me! {user.firstName}
-      </Button>
-      <br />
-      {count}
-      <Input placeholder="Search Test" /> */}
-      <Navigation />
+      <h1>Index Page</h1>
+      {data.map((product) => (
+        <div key={product.id}>
+          <Link href={`/product/${product.slug}`}>{product.name}</Link>
+        </div>
+      ))}
     </>
   )
 }
 
 export default IndexPage
+
+export const getServerSideProps = async () => {
+  const data = await network.get<Product[]>("/products")
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
