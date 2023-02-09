@@ -9,6 +9,7 @@
     "db:studio": "prisma studio --schema=./libs/database/prisma/schema.prisma",
     "db:generate": "prisma generate --schema=./libs/database/prisma/schema.prisma",
     "db:push": "prisma db push --schema=./libs/database/prisma/schema.prisma",
+    "db:push-loss": "prisma db push --schema=./libs/database/prisma/schema.prisma --accept-data-loss",
     "db:push-force": "prisma db push --schema=./libs/database/prisma/schema.prisma --accept-data-loss --force-reset",
     "db:migrate": "prisma migrate deploy --schema=./libs/database/prisma/schema.prisma",
     "db:migrate-dev": "prisma migrate dev --schema=./libs/database/prisma/schema.prisma",
