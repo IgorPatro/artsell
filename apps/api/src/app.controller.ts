@@ -22,7 +22,7 @@ export class AppController {
           <h1>Artsell API Server</h1>
           <h2>Server is ONLINE</h2>
           <h5>PS: We love Black ❤</h5>
-          ${process.env.NODE_ENV}
+          Branch: ${process.env.BRANCH}
         </body>
       </html>
     `

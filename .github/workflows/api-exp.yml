@@ -41,6 +41,10 @@ jobs:
           cd build
           touch .env
           echo DATABASE_URL=${{ vars.DATABASE_URL_EXP }} >> .env
+          echo JWT_SECRET=${{ vars.JWT_SECRET_EXP }} >> .env
+          echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_EXP }} >> .env
+
+          echo BRANCH=EXPERIMENTAL >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
