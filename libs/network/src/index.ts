@@ -2,6 +2,7 @@ export * from "./auth/login"
 export * from "./auth/register"
 export * from "./users/user"
 export * from "./messages/messages"
+export * from "./products/find-all-products"
 
 export const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 interface Options {

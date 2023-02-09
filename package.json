@@ -15,7 +15,8 @@
     "db:reset": "prisma migrate reset",
     "build:api": "npx nx run api:build --configuration production --generatePackageJson --skip-nx-cache",
     "build:web": "npx nx run web:build --configuration production",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "npx nx lint web"
   },
   "private": true,
   "dependencies": {

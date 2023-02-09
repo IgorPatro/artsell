@@ -1,28 +1,31 @@
-import React from "react"
-import { type User } from "@artsell/network"
-import { Button } from "@artsell/ui"
+import network, { Product } from "@artsell/network"
+import Link from "next/link"
 
-const user: User = {
-  id: "888141-asfaf-15fasd-551",
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@gmail.com",
-  createdAt: new Date(),
-  updatedAt: new Date(),
+interface Props {
+  data: Product[]
 }
 
-const IndexPage = () => {
-  const [count, setCount] = React.useState(0)
-
+const IndexPage = ({ data }: Props) => {
   return (
     <>
-      <Button onClick={() => setCount((prev) => (prev += 1))}>
-        Click me! {user.firstName}
-      </Button>
-      <br />
-      {count}
+      <h1>Index Page</h1>
+      {data.map((product) => (
+        <div key={product.id}>
+          <Link href={`/product/${product.slug}`}>{product.name}</Link>
+        </div>
+      ))}
     </>
   )
 }
 
 export default IndexPage
+
+export const getServerSideProps = async () => {
+  const data = await network.get<Product[]>("/products")
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
