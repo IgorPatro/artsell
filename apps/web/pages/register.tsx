@@ -1,4 +1,4 @@
-import {
+import network, {
   RegisterSchema,
   type RegisterRequest,
   RegisterResponse,
@@ -9,7 +9,6 @@ import { GetServerSideProps } from "next"
 import { getServerSession } from "../src/hooks/getServerSession"
 import { useRouter } from "next/router"
 import { useMutation } from "@tanstack/react-query"
-import { network } from "../src/utils/network"
 import { Button } from "@artsell/ui"
 
 const RegisterPage = () => {
