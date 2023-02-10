@@ -1,0 +1,27 @@
+{
+  "name": "seed",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/seed/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "apps/seed/dist",
+        "format": ["cjs"],
+        "main": "apps/seed/src/main.ts",
+        "tsConfig": "apps/seed/tsconfig.app.json",
+        "assets": ["apps/seed/src/assets"]
+      }
+    },
+    "go": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx nx build seed", "node apps/seed/dist/main.cjs"],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}
