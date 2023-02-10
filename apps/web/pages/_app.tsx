@@ -1,15 +1,9 @@
 import { AppProps } from "next/app"
-import { ThemeProvider, DefaultTheme } from "styled-components"
+import { ThemeProvider } from "styled-components"
 import { GlobalStyles } from "@artsell/ui"
+import { theme } from "@artsell/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#111",
-    secondary: "#0070f3",
-  },
-}
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],

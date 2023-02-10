@@ -1,2 +1,3 @@
 export * from "./Button/Button"
-export * from "./GlobalStyles/GlobalStyles"
+export * from "./theme/GlobalStyles"
+export * from "./theme/theme"
