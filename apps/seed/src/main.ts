@@ -1,20 +1,28 @@
 import { PrismaClient } from "@artsell/database"
+import { products, users } from "./app/data"
 
 const prisma = new PrismaClient()
 
 const main = async () => {
-  try {
-    await prisma.user.create({
-      data: {
-        email: "john.doe2@gmail.com",
-        password: "password",
-        firstName: "John",
-        lastName: "Doe",
-      },
+  await prisma.user
+    .createMany({
+      data: users,
+      skipDuplicates: true,
     })
-  } catch {
-    console.log("User already exists")
-  }
+    .catch((e) => {
+      console.error(e)
+      console.log("User already exists")
+    })
+
+  await prisma.product
+    .createMany({
+      data: products,
+      skipDuplicates: true,
+    })
+    .catch((e) => {
+      console.error(e)
+      console.log("Product already exists")
+    })
 }
 
 main()
