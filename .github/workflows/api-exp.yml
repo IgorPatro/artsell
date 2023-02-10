@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
+  build_and_deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
