@@ -6,7 +6,7 @@ import network, {
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { GetServerSideProps } from "next"
-import { getServerSession } from "../src/hooks/getServerSession"
+import { getServerSession } from "@artsell/hooks"
 import { useRouter } from "next/router"
 import { useMutation } from "@tanstack/react-query"
 import { Button } from "@artsell/ui"
