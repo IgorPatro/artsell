@@ -1,4 +1,4 @@
-import {
+import network, {
   RegisterSchema,
   type RegisterRequest,
   RegisterResponse,
@@ -6,10 +6,9 @@ import {
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { GetServerSideProps } from "next"
-import { getServerSession } from "../src/hooks/getServerSession"
+import { getServerSession } from "@artsell/hooks"
 import { useRouter } from "next/router"
 import { useMutation } from "@tanstack/react-query"
-import { network } from "../src/utils/network"
 import { Button } from "@artsell/ui"
 
 const RegisterPage = () => {
@@ -31,6 +30,7 @@ const RegisterPage = () => {
     mutationFn: async (data: RegisterRequest) =>
       network.post<RegisterResponse, RegisterRequest>("/auth/register", data),
     onSuccess: () => router.push("/login"),
+    onError: (error) => console.log(error),
   })
 
   const onSubmit = handleSubmit((data) => mutate(data))

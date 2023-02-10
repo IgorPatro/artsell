@@ -4,7 +4,7 @@ export * from "./users/user"
 export * from "./messages/messages"
 export * from "./products/find-all-products"
 
-export const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+export const backendUrl = process.env.NEXT_PUBLIC_API_URL
 interface Options {
   headers?: Record<string, string>
 }

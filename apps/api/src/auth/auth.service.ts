@@ -18,7 +18,7 @@ export class AuthService {
     const userInDb = await this.usersService.findByPayload(user)
 
     if (userInDb) {
-      throw new HttpException(messages.USER_ALREADY_EXIST, HttpStatus.CONFLICT)
+      throw new HttpException(messages.USER_ALREADY_EXISTS, HttpStatus.CONFLICT)
     }
 
     const { repPassword: __repPassword, ...rest } = user

@@ -1,5 +1,3 @@
-export {default as Navigation} from "./Navigation/Navigation"
 export * from "./Button/Button"
-export * from "./GlobalStyles/GlobalStyles"
-export * from "./GlobalStyles/theme"
-export * from "./Input/Input"
+export * from "./theme/GlobalStyles"
+export * from "./theme/theme"

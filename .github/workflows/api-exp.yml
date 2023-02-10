@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
+  build_and_deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -41,6 +41,10 @@ jobs:
           cd build
           touch .env
           echo DATABASE_URL=${{ vars.DATABASE_URL_EXP }} >> .env
+          echo JWT_SECRET=${{ vars.JWT_SECRET_EXP }} >> .env
+          echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_EXP }} >> .env
+
+          echo BRANCH=EXPERIMENTAL >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
@@ -80,7 +84,7 @@ jobs:
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
             cd /home/deployer/api/
-            npx prisma db push --accept-data-loss --force-reset
+            npx prisma db push --accept-data-loss
 
       - name: Start application
         uses: appleboy/ssh-action@master

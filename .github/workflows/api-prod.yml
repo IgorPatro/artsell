@@ -5,8 +5,8 @@ on:
     branches: ["master"]
 
 jobs:
-  build:
-    name: Build
+  build_and_deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -42,6 +42,10 @@ jobs:
           cd build
           touch .env
           echo DATABASE_URL=${{ secrets.DATABASE_URL_PROD }} >> .env
+          echo JWT_SECRET=${{ vars.JWT_SECRET_PROD }} >> .env
+          echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_PROD }} >> .env
+
+          echo BRANCH=PRODUCTION >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master

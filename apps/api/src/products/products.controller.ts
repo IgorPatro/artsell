@@ -17,4 +17,10 @@ export class ProductsController {
   public async findOne(@Param("slugOrId") slugOrId: string) {
     return this.productsService.findOne(slugOrId)
   }
+
+  @Public()
+  @Get("/new")
+  public async findNew() {
+    return this.productsService.findNew()
+  }
 }

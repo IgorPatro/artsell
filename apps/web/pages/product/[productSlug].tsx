@@ -1,6 +1,7 @@
 import network, { Product } from "@artsell/network"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
+import { Button } from "@artsell/ui"
 
 interface Props {
   data: Product
@@ -17,6 +18,7 @@ const ProductPage = ({ data }: Props) => {
       <p>{data.description}</p>
       <p>Created at: {new Date(data.createdAt).toDateString()}</p>
       <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
+      <Button>Buy</Button>
       <br />
       <ReactMarkdown>{data.content}</ReactMarkdown>
     </div>

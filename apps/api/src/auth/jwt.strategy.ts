@@ -11,7 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: "THIS_IS_MY_TEMPORARY_SECRET",
+      secretOrKey: process.env.JWT_SECRET,
     })
   }
 
@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!user) {
       throw new HttpException(
-        messages.USER_ALREADY_EXIST,
+        messages.USER_ALREADY_EXISTS,
         HttpStatus.UNAUTHORIZED,
       )
     }
