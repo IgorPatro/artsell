@@ -16,7 +16,7 @@ const nextConfig = {
     styledComponents: true
   },
   images: {
-    domains: ['cdn.sklum.com']
+    domains: ['assets.modernitycloud.pl']
   }
 };
 

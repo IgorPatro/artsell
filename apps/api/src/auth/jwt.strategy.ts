@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!user) {
       throw new HttpException(
-        messages.USER_ALREADY_EXIST,
+        messages.USER_ALREADY_EXISTS,
         HttpStatus.UNAUTHORIZED,
       )
     }

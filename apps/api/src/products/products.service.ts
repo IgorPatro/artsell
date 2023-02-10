@@ -22,4 +22,13 @@ export class ProductsService {
 
     return product
   }
+
+  async findNew() {
+    return await this.prisma.product.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 30,
+    })
+  }
 }
