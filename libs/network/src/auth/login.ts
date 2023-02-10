@@ -6,3 +6,7 @@ export const LoginSchema = z.object({
 })
 
 export type LoginRequest = z.infer<typeof LoginSchema>
+
+export type LoginResponse = {
+  Authorization: string
+}

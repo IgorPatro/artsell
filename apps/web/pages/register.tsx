@@ -30,6 +30,7 @@ const RegisterPage = () => {
     mutationFn: async (data: RegisterRequest) =>
       network.post<RegisterResponse, RegisterRequest>("/auth/register", data),
     onSuccess: () => router.push("/login"),
+    onError: (error) => console.log(error),
   })
 
   const onSubmit = handleSubmit((data) => mutate(data))
