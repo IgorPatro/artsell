@@ -5,7 +5,7 @@ import Input from "../Input/Input"
 import * as S from "./Navigation.styled"
 import Link from "next/link"
 
-const Navigation = () => {
+export const Navigation = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
 
   const toggleNavigation = () => {
@@ -32,5 +32,3 @@ const Navigation = () => {
     </S.NavigationWrapper>
   )
 }
-
-export default Navigation

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components"
 const SharedBarStyles = css`
   content: "";
   width: 100%;
-  background-color: ${({theme}) => theme.color.grey};
+  background-color: ${({theme}) => theme.palette.primary};
   height: 0.5rem;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 `
