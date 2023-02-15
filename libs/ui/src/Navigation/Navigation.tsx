@@ -17,7 +17,7 @@ export const Navigation = () => {
       <S.NavigationContent>
         <Link href="/">ArtSell</Link>
         <S.NavigationList>
-          <Input />
+          <Input placeholder="Szukaj..." />
           <S.NavigationItem>TestContent</S.NavigationItem>
         </S.NavigationList>
         <HamburgerButton

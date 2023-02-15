@@ -3,7 +3,7 @@ import styled, { css } from "styled-components"
 const SharedBarStyles = css`
   content: "";
   width: 100%;
-  background-color: ${({theme}) => theme.palette.primary};
+  background-color: ${({theme}) => theme.palette.black};
   height: 0.5rem;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 `
@@ -34,12 +34,16 @@ export const Button = styled.button<HamburgerProps>`
     ${SharedBarStyles};
     transform: ${props =>
       props.isOpen ? "translateY(300%) rotate(45deg)" : "rotate(0)"};
+    background-color: ${props =>
+      props.isOpen ? `#FFFFFF` : "#000000"};
   }
 
   &::after {
     ${SharedBarStyles};
     transform: ${props =>
       props.isOpen ? "translateY(-300%) rotate(-45deg)" : "rotate(0)"};
+    background-color: ${props =>
+      props.isOpen ? `#FFFFFF` : "#000000"};
   }
 `
 
