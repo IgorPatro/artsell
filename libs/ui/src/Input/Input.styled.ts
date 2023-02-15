@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const InputTest = styled.input`
-  background-color: ${({ theme }) => theme.palette.primary};
   border: 2px solid ${({ theme }) => theme.palette.black};
-  color: ${({ theme }) => theme.palette.primary};
+  color: ${({ theme }) => theme.palette.black};
   cursor: pointer;
   transition: background-color 0.1s ease-in-out;
+  padding: 2px 5px;
 
-  &:hover {
+  &:hover,:focus {
     background-color: ${({ theme }) => theme.palette.secondary};
   }
 `

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Link from "next/link"
 
 export const NavigationWrapper = styled.nav`
   width: 100%;
@@ -21,11 +22,12 @@ export const NavigationContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 170rem;
+  max-width: 180rem;
   margin: auto;
   ${({ theme }) => theme.MQ.laptop} {
     margin: 3rem auto;
   }
+
 `
 
 export const Logo = styled.img`
@@ -37,6 +39,11 @@ export const Logo = styled.img`
   ${({ theme }) => theme.MQ.laptop} {
     width: 6rem;
   }
+`
+
+export const LogoParagraph = styled(Link)`
+text-decoration: none;
+font-size: 3rem;
 `
 
 export const NavigationList = styled.ul`

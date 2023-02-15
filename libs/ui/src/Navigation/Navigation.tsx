@@ -3,7 +3,8 @@ import HamburgerButton from "./HamburgerButton/HamburgerButton"
 import MobileNavigation from "./MobileNavigation/MobileNavigation"
 import Input from "../Input/Input"
 import * as S from "./Navigation.styled"
-import Link from "next/link"
+import NavigationIcon from "./NavigationIcons/NavigationIcon"
+import UserIcon from ""
 
 export const Navigation = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
@@ -15,10 +16,18 @@ export const Navigation = () => {
   return (
     <S.NavigationWrapper>
       <S.NavigationContent>
-        <Link href="/">ArtSell</Link>
+        <S.LogoParagraph href="/">ArtSell</S.LogoParagraph>
         <S.NavigationList>
           <Input placeholder="Szukaj..." />
-          <S.NavigationItem>TestContent</S.NavigationItem>
+          <S.NavigationItem>
+            <NavigationIcon
+              src="../assets//icons//UserIcon.svg"
+              alt={""}
+              description={"test"}
+              width={30}
+              height={30}
+            />
+          </S.NavigationItem>
         </S.NavigationList>
         <HamburgerButton
           toggleNavigation={toggleNavigation}
