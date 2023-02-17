@@ -7,21 +7,21 @@ import {
   RegisterRequest,
   LoginSchema,
   LoginRequest,
-} from "@art-nx/network"
+} from "@artsell/network"
 
 @Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
-  @Validate(RegisterSchema as any)
+  @Validate(RegisterSchema)
   @Post("register")
   public async register(@Body() body: RegisterRequest) {
     return await this.authService.register(body)
   }
 
   @Public()
-  @Validate(LoginSchema as any)
+  @Validate(LoginSchema)
   @Post("login")
   public async login(@Body() body: LoginRequest) {
     return await this.authService.login(body)

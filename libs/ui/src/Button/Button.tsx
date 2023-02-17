@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const Styled = styled.button`
   background-color: red;
-  color: white;
+  color: ${({ theme }) => theme.palette.primary};
   font-size: 2rem;
   padding: 1rem;
   border: none;

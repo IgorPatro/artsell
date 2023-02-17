@@ -14,6 +14,9 @@ const nextConfig = {
   },
   compiler: {
     styledComponents: true
+  },
+  images: {
+    domains: ['assets.modernitycloud.pl']
   }
 };
 

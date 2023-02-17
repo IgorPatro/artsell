@@ -1,38 +1,40 @@
-import React from "react"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
-import { getServerSession } from "../src/hooks/getServerSession"
-import { backendUrl, sessionCookieName } from "../src/utils/constants"
+import { getServerSession } from "@artsell/hooks"
+import { sessionCookieName } from "@artsell/constants"
 import { setCookie } from "nookies"
-import { Button } from "@art-nx/ui"
+import { Button } from "@artsell/ui"
+import network, {
+  LoginSchema,
+  LoginRequest,
+  LoginResponse,
+} from "@artsell/network"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
 
 const LoginPage = () => {
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginRequest>({
+    resolver: zodResolver(LoginSchema),
+  })
+
   const router = useRouter()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const { mutate } = useMutation<LoginResponse, Error, LoginRequest>({
+    mutationFn: async (data: LoginRequest) =>
+      network.post<LoginResponse, LoginRequest>("/auth/login", data),
+    onSuccess: ({ Authorization }) => {
+      setCookie(null, sessionCookieName, Authorization)
+      router.push("/")
+    },
+    onError: (error) => console.log(error.message),
+  })
 
-    const res = await fetch(`${backendUrl}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-
-    if (!res.ok) {
-      return console.log("error")
-    }
-
-    const { Authorization } = await res.json()
-    setCookie(null, sessionCookieName, Authorization)
-    router.push("/")
-  }
+  const onSubmit = handleSubmit((data) => mutate(data))
 
   return (
     <form
@@ -42,23 +44,22 @@ const LoginPage = () => {
         flexDirection: "column",
         width: "300px",
       }}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     >
       <input
-        type="text"
+        style={{ border: `1px solid ${errors.email ? "red" : "black"}` }}
         placeholder="email"
-        style={{ border: "1px solid black" }}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        {...register("email")}
       />
+      {errors?.email?.message}
       <input
+        style={{ border: `1px solid ${errors.password ? "red" : "black"}` }}
+        placeholder="password"
         type="password"
-        placeholder="hasło"
-        style={{ border: "1px solid black" }}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        {...register("password")}
       />
-      <Button type="submit">Zaloguj</Button>
+      {errors?.password?.message}
+      <Button type="submit">Zaloguj się</Button>
     </form>
   )
 }

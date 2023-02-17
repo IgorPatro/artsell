@@ -3,8 +3,8 @@ import { UsersService } from "../users/users.service"
 import { JwtService } from "@nestjs/jwt"
 import { hash } from "bcrypt"
 import { PrismaService } from "../prisma.service"
-import { LoginRequest, RegisterRequest, messages } from "@art-nx/network"
-import { User } from "@art-nx/database"
+import { LoginRequest, RegisterRequest, messages } from "@artsell/network"
+import { User } from "@artsell/database"
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
     const userInDb = await this.usersService.findByPayload(user)
 
     if (userInDb) {
-      throw new HttpException(messages.USER_ALREADY_EXIST, HttpStatus.CONFLICT)
+      throw new HttpException(messages.USER_ALREADY_EXISTS, HttpStatus.CONFLICT)
     }
 
     const { repPassword: __repPassword, ...rest } = user
