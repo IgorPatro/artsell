@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common"
+import { Controller, Get, Param, Post } from "@nestjs/common"
 import { CartsService } from "./carts.service"
 import { Public } from "../decorators/public.decorator"
 
@@ -11,4 +11,10 @@ export class CartsController {
   public async findOne(@Param("cartId") cartId: string) {
     return this.cartsService.findCart(cartId)
   }
+
+  // @Public()
+  // @Post("")
+  // public async create() {
+  //   return this.cartsService.createCart(userId)
+  // }
 }
