@@ -30,7 +30,7 @@ export class AuthService {
       },
     })
 
-    return this.usersService.sendUser(createdUser)
+    return this.usersService.sendSafeUser(createdUser)
   }
 
   async login(credentials: LoginRequest) {
