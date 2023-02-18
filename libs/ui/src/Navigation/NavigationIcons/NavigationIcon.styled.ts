@@ -9,6 +9,8 @@ export const IconWrapper = styled.div`
 `
 
 export const IconImage = styled(Image)`
+    max-width: 4rem;
+    max-height: 4rem;
 `
 
 export const IconDescritpion = styled.p`

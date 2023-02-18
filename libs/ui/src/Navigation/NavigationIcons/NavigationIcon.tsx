@@ -1,7 +1,8 @@
 import * as S from "./NavigationIcon.styled"
+import { StaticImageData } from "next/image"
 
 interface Props {
-  src: string
+  src: StaticImageData
   alt: string
   description: string
   width?: number

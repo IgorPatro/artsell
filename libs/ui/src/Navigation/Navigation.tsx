@@ -4,10 +4,13 @@ import MobileNavigation from "./MobileNavigation/MobileNavigation"
 import Input from "../Input/Input"
 import * as S from "./Navigation.styled"
 import NavigationIcon from "./NavigationIcons/NavigationIcon"
-import UserIcon from ""
+import UserIcon from "../assets/icons/UserIcon.svg"
+import AddIcon from "../assets/icons/AddIcon.svg"
+import BasketIcon from "../assets/icons/BasketIcon.svg"
 
 export const Navigation = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
+  const [isLogged, setIsLogged] = React.useState(false)
 
   const toggleNavigation = () => {
     setIsMobileNavOpen((prevState) => !prevState)
@@ -21,11 +24,29 @@ export const Navigation = () => {
           <Input placeholder="Szukaj..." />
           <S.NavigationItem>
             <NavigationIcon
-              src="../assets//icons//UserIcon.svg"
+              src={UserIcon}
               alt={""}
-              description={"test"}
-              width={30}
-              height={30}
+              description={isLogged ? "Profil" : "Zaloguj się"}
+              // width={30}
+              // height={30}
+            />
+          </S.NavigationItem>
+          <S.NavigationItem>
+            <NavigationIcon
+              src={AddIcon}
+              alt={""}
+              description={isLogged ? "Profil" : "Zaloguj się"}
+              // width={30}
+              // height={30}
+            />
+          </S.NavigationItem>
+          <S.NavigationItem>
+            <NavigationIcon
+              src={BasketIcon}
+              alt={""}
+              description={isLogged ? "Profil" : "Zaloguj się"}
+              // width={30}
+              // height={30}
             />
           </S.NavigationItem>
         </S.NavigationList>

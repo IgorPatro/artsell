@@ -70,7 +70,6 @@ export const NavigationItem = styled.li`
   transition-property: color transform;
 
   &:hover {
-    color: white;
     transform: scale(1.1);
   }
 `
