@@ -1,6 +1,5 @@
 import network, { Product } from "@artsell/network"
 import Link from "next/link"
-import { Navigation } from "@artsell/ui"
 
 interface Props {
   data: Product[]
@@ -9,13 +8,12 @@ interface Props {
 const IndexPage = ({ data }: Props) => {
   return (
     <>
-      <Navigation />
-      {/* <h1>Index Page</h1>
+      <h1>Index Page</h1>
       {data.map((product) => (
         <div key={product.id}>
           <Link href={`/product/${product.slug}`}>{product.name}</Link>
         </div>
-      ))} */}
+      ))}
     </>
   )
 }

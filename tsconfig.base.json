@@ -21,7 +21,6 @@
       "@artsell/network": ["libs/network/src/index.ts"],
       "@artsell/types": ["libs/types/src/index.ts"],
       "@artsell/ui": ["libs/ui/src/index.ts"],
-      "@artsell/uistructure": ["libs/uistructure/src/index.ts"],
       "@artsell/zod": ["libs/zod/src/index.ts"]
     },
     "strict": true

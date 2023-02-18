@@ -2,7 +2,7 @@ export const users = [
   {
     id: "my-test-id",
     email: "john.doe@gmail.com",
-    password: "password",
+    password: "$2b$10$OBZYD2Q5iCaVHS4qog6AfudU.xYSLt9VsbEG/HgSGrAK4JDKZ..kG", // 123456
     firstName: "John",
     lastName: "Doe",
   },
