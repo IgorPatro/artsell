@@ -10,8 +10,15 @@ const MobileNavigation = (props: Props) => {
   return (
     <S.MobileNavigationWrapper isOpen={props.isMobileNavOpen}>
       <S.NavigationList>
-        <SS.NavigationItem>ContentTest</SS.NavigationItem>
-        <button>Contact</button>
+        <SS.NavigationItem>
+          <SS.NavigationButton>Zaloguj się</SS.NavigationButton>
+        </SS.NavigationItem>
+        <SS.NavigationItem>
+          <SS.NavigationButton>Ulubione</SS.NavigationButton>
+        </SS.NavigationItem>
+        <SS.NavigationItem>
+          <SS.NavigationButton>Koszyk</SS.NavigationButton>
+        </SS.NavigationItem>
       </S.NavigationList>
     </S.MobileNavigationWrapper>
   )

@@ -27,27 +27,13 @@ export const Navigation = () => {
               src={UserIcon}
               alt={""}
               description={isLogged ? "Profil" : "Zaloguj się"}
-              // width={30}
-              // height={30}
             />
           </S.NavigationItem>
           <S.NavigationItem>
-            <NavigationIcon
-              src={AddIcon}
-              alt={""}
-              description={isLogged ? "Profil" : "Zaloguj się"}
-              // width={30}
-              // height={30}
-            />
+            <NavigationIcon src={AddIcon} alt={""} description={"Ulubione"} />
           </S.NavigationItem>
           <S.NavigationItem>
-            <NavigationIcon
-              src={BasketIcon}
-              alt={""}
-              description={isLogged ? "Profil" : "Zaloguj się"}
-              // width={30}
-              // height={30}
-            />
+            <NavigationIcon src={BasketIcon} alt={""} description={"Koszyk"} />
           </S.NavigationItem>
         </S.NavigationList>
         <HamburgerButton

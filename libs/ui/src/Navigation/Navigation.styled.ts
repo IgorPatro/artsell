@@ -66,10 +66,7 @@ export const NavigationItem = styled.li`
   margin: 0;
   padding: 0;
   cursor: pointer;
-  transition: 0.1s ease-in-out;
-  transition-property: color transform;
-
-  &:hover {
-    transform: scale(1.1);
-  }
+`
+export const NavigationButton = styled.button`
+    color: #cecece;
 `
