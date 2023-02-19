@@ -9,12 +9,6 @@ import {
   DeleteCartItemRequest,
 } from "@artsell/network"
 
-// GET/:cartId
-// POST - {productId, quantity} (tworzymy nowy cart)
-// POST/:cartId - {productId, quantity}
-// DELETE/:cartId - {productId}
-// PUT/:cartId - {productId, quantity}
-
 @Controller("carts")
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}

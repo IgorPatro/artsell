@@ -13,7 +13,6 @@ const CartPage = () => {
     queryKey: ["/carts/:cartId"],
     queryFn: () => network.get<Cart>(`/carts/${cartId}`),
     enabled: !!cartId,
-    onSuccess: (data) => console.log(data),
   })
 
   const { mutate: deleteCartItem } = useMutation({
