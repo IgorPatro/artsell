@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputTest = styled.input`
+export const SearchBar = styled.input`
   border: 2px solid ${({ theme }) => theme.palette.black};
   color: ${({ theme }) => theme.palette.black};
   cursor: pointer;
@@ -8,7 +8,7 @@ export const InputTest = styled.input`
   padding: 10px 10px;
   max-height: 4rem;
 
-  &:hover,:focus {
+  &:hover, &:focus {
     background-color: ${({ theme }) => theme.palette.secondary};
   }
 `

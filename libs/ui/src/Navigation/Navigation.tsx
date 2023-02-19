@@ -1,7 +1,7 @@
 import React from "react"
 import HamburgerButton from "./HamburgerButton/HamburgerButton"
 import MobileNavigation from "./MobileNavigation/MobileNavigation"
-import Input from "../Input/Input"
+import SearchBar from "../SearchBar/SearchBar"
 import * as S from "./Navigation.styled"
 import NavigationIcon from "./NavigationIcons/NavigationIcon"
 import UserIcon from "../assets/icons/UserIcon.svg"
@@ -21,7 +21,7 @@ export const Navigation = () => {
       <S.NavigationContent>
         <S.LogoParagraph href="/">ArtSell</S.LogoParagraph>
         <S.NavigationList>
-          <Input placeholder="Szukaj..." />
+          <SearchBar placeholder="Szukaj..." />
           <S.NavigationItem>
             <NavigationIcon
               src={UserIcon}
