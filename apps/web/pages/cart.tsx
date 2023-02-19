@@ -2,7 +2,12 @@ import React from "react"
 import { useAuthContext } from "@artsell/context"
 import Link from "next/link"
 import { useQuery, useMutation } from "@tanstack/react-query"
-import network, { Cart, CartItemRequest, CartItem } from "@artsell/network"
+import network, {
+  Cart,
+  CartItemRequest,
+  CartItem,
+  DeleteCartItemRequest,
+} from "@artsell/network"
 import Image from "next/image"
 import { Button } from "@artsell/ui"
 
@@ -16,8 +21,8 @@ const CartPage = () => {
   })
 
   const { mutate: deleteCartItem } = useMutation({
-    mutationFn: async (data: CartItemRequest) =>
-      network.delete<CartItem, CartItemRequest>(`/carts/${cartId}`, data),
+    mutationFn: async (data: DeleteCartItemRequest) =>
+      network.delete<CartItem, DeleteCartItemRequest>(`/carts/${cartId}`, data),
     onSuccess: () => refetch(),
     onError: (error) => console.log(error),
   })
@@ -41,7 +46,7 @@ const CartPage = () => {
         <h2>Twój koszyk jest pusty!</h2>
       ) : (
         <>
-          {data.items.length ? (
+          {data?.items.length ? (
             data.items.map((item) => (
               <div key={item.id}>
                 <Link href={`/product/${item.product.slug}`}>
