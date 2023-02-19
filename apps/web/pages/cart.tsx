@@ -3,6 +3,7 @@ import { useAuthContext } from "@artsell/context"
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
 import network, { Cart } from "@artsell/network"
+import Image from "next/image"
 
 const CartPage = () => {
   const { cartId } = useAuthContext()
@@ -28,7 +29,16 @@ const CartPage = () => {
           {data.items.length ? (
             data.items.map((item) => (
               <div key={item.id}>
-                <h3>{item.id}</h3>
+                <Image
+                  src={item.product.image}
+                  alt={item.product.description}
+                  width={200}
+                  height={200}
+                />
+                <h3>{item.product.name}</h3>
+                <h4>
+                  {item.product.price} zł x {item.quantity}
+                </h4>
               </div>
             ))
           ) : (

@@ -35,10 +35,12 @@ export class UsersService {
   }
 
   async findById(userId: string) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
       include: { cart: true },
     })
+
+    return this.sendSafeUserData(user)
   }
 
   async findByPayload({ email }: Partial<User>) {
@@ -47,7 +49,7 @@ export class UsersService {
     })
   }
 
-  async sendSafeUserData(user: User) {
+  async sendSafeUserData(user: any) {
     const { password: __password, ...rest } = user
 
     return rest
