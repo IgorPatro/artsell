@@ -20,20 +20,20 @@ export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 
   @Public()
-  @Get(":cartId")
+  @Get("/:cartId")
   public async findOne(@Param("cartId") cartId: string) {
     return this.cartsService.findCart(cartId)
   }
 
   @Public()
-  @Post("")
+  @Post("/")
   @Validate(CartItemSchema)
   public async createNewCart(@Body() body: CartItemRequest) {
     return this.cartsService.createCartWithFirstItem(body)
   }
 
   @Public()
-  @Post(":cartId")
+  @Post("/:cartId")
   @Validate(CartItemSchema)
   public async addCartItemToCart(
     @Param("cartId") cartId: string,
@@ -43,7 +43,7 @@ export class CartsController {
   }
 
   @Public()
-  @Delete(":cartId")
+  @Delete("/:cartId")
   @Validate(DeleteCartItemSchema)
   public async deleteCartItemFromCart(
     @Param("cartId") cartId: string,
@@ -53,7 +53,7 @@ export class CartsController {
   }
 
   @Public()
-  @Put(":cartId")
+  @Put("/:cartId")
   @Validate(CartItemSchema)
   public async updateCartItemAtCart(
     @Param("cartId") cartId: string,

@@ -11,14 +11,14 @@ export class UsersController {
     private readonly cartsService: CartsService,
   ) {}
 
-  @Get("session")
+  @Get("/session")
   public async session(@Req() req: Request) {
     const { user } = req
 
     return this.usersService.sendSafeUserData(user as User)
   }
 
-  @Get("me")
+  @Get("/me")
   public async me(@Req() req: Request) {
     const { user: sessionUser } = req
 
@@ -27,7 +27,7 @@ export class UsersController {
     return this.usersService.sendSafeUserData(user)
   }
 
-  @Get("me/cart")
+  @Get("/me/cart")
   public async myCart(@Req() req: Request) {
     const { user } = req
 
