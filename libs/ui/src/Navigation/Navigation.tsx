@@ -12,9 +12,7 @@ export const Navigation = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
   const [isLogged, setIsLogged] = React.useState(false)
 
-  const toggleNavigation = () => {
-    setIsMobileNavOpen((prevState) => !prevState)
-  }
+  const toggleNavigation = () => setIsMobileNavOpen((prevState) => !prevState)
 
   return (
     <S.NavigationWrapper>
