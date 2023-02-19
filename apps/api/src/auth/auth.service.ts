@@ -15,9 +15,9 @@ export class AuthService {
   ) {}
 
   async register(user: RegisterRequest) {
-    const userInDb = await this.usersService.findByPayload(user)
+    const userInDB = await this.usersService.findByPayload(user)
 
-    if (userInDb) {
+    if (userInDB) {
       throw new HttpException(messages.USER_ALREADY_EXISTS, HttpStatus.CONFLICT)
     }
 

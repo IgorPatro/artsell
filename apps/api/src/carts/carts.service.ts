@@ -17,6 +17,9 @@ export class CartsService {
           include: {
             product: true,
           },
+          orderBy: {
+            id: "asc",
+          },
         },
         user: true,
       },
@@ -69,6 +72,16 @@ export class CartsService {
   }
 
   async appendCartItem(cartId: string, data: CartItemRequest) {
+    const cartItemInDB = await this.prisma.cartItem.findMany({
+      where: {
+        cartId,
+        productId: data.productId,
+      },
+    })
+
+    if (cartItemInDB.length)
+      throw new HttpException(messages.ITEM_ALREADY_EXISTS, HttpStatus.CONFLICT)
+
     const cartItem = await this.prisma.cartItem.create({
       data: {
         quantity: data.quantity,
