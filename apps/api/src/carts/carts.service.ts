@@ -1,6 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common"
 import { PrismaService } from "../prisma.service"
 import { messages } from "@artsell/network"
+import { CartItemRequest } from "@artsell/network"
 
 @Injectable()
 export class CartsService {
@@ -45,48 +46,62 @@ export class CartsService {
     return cart
   }
 
-  async createCart(userId: string) {
+  async createCartWithFirstItem(data: CartItemRequest) {
     const cart = await this.prisma.cart.create({
       data: {
-        userId,
+        items: {
+          create: {
+            quantity: data.quantity,
+            productId: data.productId,
+          },
+        },
+      },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
       },
     })
 
     return cart
   }
 
-  async createCartItem(cartId: string, productId: string, quantity: number) {
-    const item = await this.prisma.cartItem.create({
+  async appendCartItem(cartId: string, data: CartItemRequest) {
+    const cartItem = await this.prisma.cartItem.create({
       data: {
+        quantity: data.quantity,
+        productId: data.productId,
         cartId,
-        productId,
-        quantity,
       },
     })
 
-    return item
+    return cartItem
   }
 
-  async updateCartItem(cartItemId: string, quantity: number) {
-    const item = await this.prisma.cartItem.update({
+  async deleteCartItem(cartId: string, productId: string) {
+    const deletedCartItem = await this.prisma.cartItem.deleteMany({
       where: {
-        id: cartItemId,
+        productId,
+        cartId,
+      },
+    })
+
+    return deletedCartItem
+  }
+
+  async updateCartItem(cartId: string, data: CartItemRequest) {
+    const updatedCartItem = await this.prisma.cartItem.updateMany({
+      where: {
+        productId: data.productId,
+        cartId,
       },
       data: {
-        quantity,
+        quantity: data.quantity,
       },
     })
 
-    return item
-  }
-
-  async deleteCartItem(cartItemId: string) {
-    const item = await this.prisma.cartItem.delete({
-      where: {
-        id: cartItemId,
-      },
-    })
-
-    return item
+    return updatedCartItem
   }
 }

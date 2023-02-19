@@ -2,6 +2,7 @@ export * from "./auth"
 export * from "./users"
 export * from "./messages"
 export * from "./products"
+export * from "./carts"
 
 export const backendUrl = process.env.NEXT_PUBLIC_API_URL
 

@@ -40,7 +40,7 @@ export class UsersService {
     })
   }
 
-  async sendSafeUser(user: User) {
+  async sendSafeUserData(user: User) {
     const { password: __password, ...rest } = user
 
     return rest

@@ -15,7 +15,7 @@ export class UsersController {
   public async me(@Req() req: Request) {
     const { user } = req
 
-    return this.usersService.sendSafeUser(user as User)
+    return this.usersService.sendSafeUserData(user as User)
   }
 
   @Get("me/cart")

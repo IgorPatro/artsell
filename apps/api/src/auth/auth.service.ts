@@ -27,10 +27,13 @@ export class AuthService {
       data: {
         ...rest,
         password: await hash(user.password, 10),
+        cart: {
+          create: {},
+        },
       },
     })
 
-    return this.usersService.sendSafeUser(createdUser)
+    return this.usersService.sendSafeUserData(createdUser)
   }
 
   async login(credentials: LoginRequest) {
