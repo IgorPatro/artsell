@@ -34,6 +34,13 @@ export class UsersService {
     return rest
   }
 
+  async findById(userId: string) {
+    return await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { cart: true },
+    })
+  }
+
   async findByPayload({ email }: Partial<User>) {
     return await this.prisma.user.findFirst({
       where: { email },
