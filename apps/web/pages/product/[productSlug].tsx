@@ -2,6 +2,7 @@ import React from "react"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
 import { Button } from "@artsell/ui"
+import { GetServerSideProps } from "next"
 import { useAuthContext } from "@artsell/context"
 import { useMutation } from "@tanstack/react-query"
 import network, { CartItemRequest, CartItem, Product } from "@artsell/network"
@@ -19,7 +20,6 @@ const ProductPage = ({ data }: Props) => {
         cartId ? `/carts/${cartId}` : `/carts/`,
         data,
       ),
-    onSuccess: (data) => console.log(data),
     onError: (error) => console.log(error),
   })
 
@@ -32,7 +32,7 @@ const ProductPage = ({ data }: Props) => {
       <Image src={data.image} alt={data.name} width={400} height={400} />
       <p>{data.description}</p>
       <p>Created at: {new Date(data.createdAt).toDateString()}</p>
-      <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
+      <p>Updated at: {new Date(data.updatedAt).toDateString()}</p>
       <Button>Buy</Button>
       <br />
       <Button onClick={() => addToCart({ productId: data.id, quantity: 1 })}>
@@ -46,7 +46,7 @@ const ProductPage = ({ data }: Props) => {
 
 export default ProductPage
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { productSlug } = query
   const data = await network.get<Product>(`/products/${productSlug}`)
 
