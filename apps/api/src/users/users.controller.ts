@@ -20,9 +20,11 @@ export class UsersController {
 
   @Get("me")
   public async me(@Req() req: Request) {
-    const { user } = req
+    const { user: sessionUser } = req
 
-    return this.usersService.findById((user as User).id)
+    const user = await this.usersService.findById((sessionUser as User).id)
+
+    return this.usersService.sendSafeUserData(user)
   }
 
   @Get("me/cart")
