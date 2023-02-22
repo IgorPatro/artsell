@@ -32,22 +32,22 @@ export const Button = styled.button<HamburgerProps>`
 
   &::before {
     ${SharedBarStyles};
-    transform: ${props =>
-      props.isOpen ? "translateY(300%) rotate(45deg)" : "rotate(0)"};
-    background-color: ${props =>
-      props.isOpen ? `#FFFFFF` : "#000000"};
+    transform: ${({isOpen}) =>
+      isOpen ? "translateY(300%) rotate(45deg)" : "rotate(0)"};
+    background-color: ${({isOpen}) =>
+      isOpen ? `#FFFFFF` : "#000000"};
   }
 
   &::after {
     ${SharedBarStyles};
-    transform: ${props =>
-      props.isOpen ? "translateY(-300%) rotate(-45deg)" : "rotate(0)"};
-    background-color: ${props =>
-      props.isOpen ? `#FFFFFF` : "#000000"};
+    transform: ${({isOpen}) =>
+      isOpen ? "translateY(-300%) rotate(-45deg)" : "rotate(0)"};
+    background-color: ${({isOpen}) =>
+      isOpen ? `#FFFFFF` : "#000000"};
   }
 `
 
 export const ButtonBar = styled.div<HamburgerProps>`
   ${SharedBarStyles};
-  opacity: ${props => (props.isOpen ? "0" : "1")};
+  opacity: ${({isOpen}) => (isOpen ? "0" : "1")};
 `
