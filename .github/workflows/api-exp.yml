@@ -52,9 +52,10 @@ jobs:
           host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
-            pm2 stop API || true
+            cd /home/deployer/exp/api/
+            pm2 stop API-Exp || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
@@ -63,7 +64,8 @@ jobs:
           SOURCE: "build/"
           REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          TARGET: "/home/deployer/api"
+          REMOTE_PORT: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          TARGET: "/home/deployer/exp/api"
 
       - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
@@ -71,8 +73,9 @@ jobs:
           host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/exp/api/
             yarn
             npx prisma generate
 
@@ -82,8 +85,9 @@ jobs:
           host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/exp/api/
             npx prisma db push --accept-data-loss
 
       - name: Start application
@@ -92,6 +96,7 @@ jobs:
           host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
-            pm2 start main.js --name API
+            cd /home/deployer/exp/api/
+            pm2 start main.js --name API-Exp

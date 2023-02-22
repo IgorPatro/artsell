@@ -1,3 +1,7 @@
-import { User as UserDB } from "@artsell/database"
+import { User as UserDB, Cart as CartDB } from "@artsell/database"
 
-export type User = Omit<UserDB, "password">
+type OmmitedUser = Omit<UserDB, "password">
+
+export interface User extends OmmitedUser {
+  cart: CartDB
+}

@@ -15,14 +15,14 @@ export class AuthController {
 
   @Public()
   @Validate(RegisterSchema)
-  @Post("register")
+  @Post("/register")
   public async register(@Body() body: RegisterRequest) {
     return await this.authService.register(body)
   }
 
   @Public()
   @Validate(LoginSchema)
-  @Post("login")
+  @Post("/login")
   public async login(@Body() body: LoginRequest) {
     return await this.authService.login(body)
   }
