@@ -1,0 +1,29 @@
+name: EXP
+
+on:
+  workflow_dispatch:
+    branches: ["master"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+          lfs: true
+
+      - name: Stop current application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
+          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          script: |
+            cd /home/deployer/exp/
+            ls
+            pm2 stop WEB || true
