@@ -66,7 +66,7 @@ jobs:
           SOURCE: "build/"
           REMOTE_HOST: ${{ vars.DEPLOY_HOST_PROD }}
           REMOTE_USER: ${{ vars.DEPLOY_USER_PROD }}
-          REMOTE_PORT: ${{ vars.DEPLOY_PORT_DEV_PROD }}
+          REMOTE_PORT: ${{ vars.DEPLOY_PORT_PROD }}
           TARGET: "/home/deployer/prod/api"
 
       - name: Install remote packages and generate prisma client
