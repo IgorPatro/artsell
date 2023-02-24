@@ -47,7 +47,7 @@ jobs:
           port: ${{ vars.DEPLOY_PORT_EXP }}
           script: |
             cd /home/deployer/exp/web/
-            pm2 stop WEB-Exp || true
+            pm2 delete WEB-Exp || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
@@ -79,4 +79,4 @@ jobs:
           port: ${{ vars.DEPLOY_PORT_EXP }}
           script: |
             cd /home/deployer/exp/web/
-            pm2 start yarn --name WEB-Exp -- start
+            pm2 start yarn --name WEB-Exp -- start -p 3002

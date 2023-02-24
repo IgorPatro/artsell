@@ -9,7 +9,7 @@ export class AppController {
     return `
       <html>
         <head>
-          <title>Artsell API</title>
+          <title>Artsell API - ${process.env.BRANCH}</title>
           <style>
             body {
               color: white;
