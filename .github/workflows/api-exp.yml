@@ -45,6 +45,7 @@ jobs:
           echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_EXP }} >> .env
 
           echo BRANCH=EXPERIMENTAL >> .env
+          echo API_PORT=5002 >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master

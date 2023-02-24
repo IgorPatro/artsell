@@ -46,6 +46,7 @@ jobs:
           echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_PROD }} >> .env
 
           echo BRANCH=PRODUCTION >> .env
+          echo API_PORT=5000 >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
@@ -54,8 +55,8 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
-            pm2 stop API || true
+            cd /home/deployer/prod/api/
+            pm2 stop API-Prod || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
@@ -64,7 +65,7 @@ jobs:
           SOURCE: "build/"
           REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
           REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          TARGET: "/home/deployer/api"
+          TARGET: "/home/deployer/prod/api"
 
       - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
@@ -73,7 +74,7 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/prod/api/
             yarn
             npx prisma generate
 
@@ -84,7 +85,7 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/prod/api/
             npx prisma migrate deploy
 
       - name: Start application
@@ -94,5 +95,5 @@ jobs:
           username: ${{ vars.DEPLOY_USER_DEV_EXP }}
           password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
           script: |
-            cd /home/deployer/api/
-            pm2 start main.js --name API
+            cd /home/deployer/prod/api/
+            pm2 start main.js --name API-Prod
