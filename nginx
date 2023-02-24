@@ -1,3 +1,6 @@
+# This is a "default" file from /etc/nginx/sites-enabled
+# If making changes on server - make sure to copy it here!
+
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
@@ -52,6 +55,28 @@ server {
 
   location / {
     proxy_pass http://localhost:3002;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name development.byst.re;
+
+  location / {
+    proxy_pass http://localhost:3001;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name production.byst.re;
+
+  location / {
+    proxy_pass http://localhost:3000;
   }
 }
 
