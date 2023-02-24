@@ -51,10 +51,10 @@ jobs:
       - name: Stop current application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
-          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_DEV }}
+          username: ${{ vars.DEPLOY_USER_DEV }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV }}
+          port: ${{ vars.DEPLOY_PORT_DEV }}
           script: |
             cd /home/deployer/dev/api/
             pm2 stop API-Dev || true
@@ -62,20 +62,20 @@ jobs:
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_DEV_EXP }}
+          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_DEV }}
           SOURCE: "build/"
-          REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          REMOTE_PORT: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV }}
+          REMOTE_USER: ${{ vars.DEPLOY_USER_DEV }}
+          REMOTE_PORT: ${{ vars.DEPLOY_PORT_DEV }}
           TARGET: "/home/deployer/dev/api"
 
       - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
-          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_DEV }}
+          username: ${{ vars.DEPLOY_USER_DEV }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV }}
+          port: ${{ vars.DEPLOY_PORT_DEV }}
           script: |
             cd /home/deployer/dev/api/
             yarn
@@ -84,10 +84,10 @@ jobs:
       - name: Apply database migrations
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
-          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_DEV }}
+          username: ${{ vars.DEPLOY_USER_DEV }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV }}
+          port: ${{ vars.DEPLOY_PORT_DEV }}
           script: |
             cd /home/deployer/dev/api/
             npx prisma migrate deploy
@@ -95,10 +95,10 @@ jobs:
       - name: Start application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
-          port: ${{ vars.DEPLOY_PORT_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_DEV }}
+          username: ${{ vars.DEPLOY_USER_DEV }}
+          password: ${{ vars.DEPLOY_PASSWORD_DEV }}
+          port: ${{ vars.DEPLOY_PORT_DEV }}
           script: |
             cd /home/deployer/dev/api/
             pm2 start main.js --name API-Dev

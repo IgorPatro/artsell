@@ -18,7 +18,7 @@ server {
   server_name ap1exp.byst.re;
 
   location / {
-    proxy_pass http://localhost:5000;
+    proxy_pass http://localhost:5002;
   }
 }
 
@@ -29,6 +29,17 @@ server {
   server_name ap1dev.byst.re;
 
   location / {
-    proxy_pass http://localhost:4545;
+    proxy_pass http://localhost:5001;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name ap1prod.byst.re;
+
+  location / {
+    proxy_pass http://localhost:5000;
   }
 }

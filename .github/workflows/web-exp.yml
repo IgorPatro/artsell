@@ -41,38 +41,42 @@ jobs:
       - name: Stop current application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_EXP }}
+          username: ${{ vars.DEPLOY_USER_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_EXP }}
+          port: ${{ vars.DEPLOY_PORT_EXP }}
           script: |
-            cd /home/deployer/web/
-            pm2 stop WEB || true
+            cd /home/deployer/exp/web/
+            pm2 stop WEB-Exp || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_DEV_EXP }}
+          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_EXP }}
           SOURCE: "build/"
-          REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          TARGET: "/home/deployer/web"
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST_EXP }}
+          REMOTE_USER: ${{ vars.DEPLOY_USER_EXP }}
+          REMOTE_PORT: ${{ vars.DEPLOY_PORT_EXP }}
+          TARGET: "/home/deployer/exp/web"
 
       - name: Install remote packages
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_EXP }}
+          username: ${{ vars.DEPLOY_USER_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_EXP }}
+          port: ${{ vars.DEPLOY_PORT_EXP }}
           script: |
-            cd /home/deployer/web/
+            cd /home/deployer/exp/web/
             yarn
 
       - name: Start application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_EXP }}
+          username: ${{ vars.DEPLOY_USER_EXP }}
+          password: ${{ vars.DEPLOY_PASSWORD_EXP }}
+          port: ${{ vars.DEPLOY_PORT_EXP }}
           script: |
-            cd /home/deployer/web/
-            pm2 start yarn --name WEB -- start
+            cd /home/deployer/exp/web/
+            pm2 start yarn --name WEB-Exp -- start
