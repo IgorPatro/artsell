@@ -27,11 +27,11 @@ const App = ({ Component, pageProps }: AppProps) => {
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          {/* <Layout> */}
-          <main className={`main ${poppins.className}`}>
-            <Component {...pageProps} />
-          </main>
-          {/* </Layout> */}
+          <Layout>
+            <main className={`main ${poppins.className}`}>
+              <Component {...pageProps} />
+            </main>
+          </Layout>
         </ThemeProvider>
       </AuthContextProvider>
     </QueryClientProvider>

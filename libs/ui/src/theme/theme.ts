@@ -20,5 +20,14 @@ export const theme: DefaultTheme = {
     tablet: `@media (min-width: ${breakpoints.tablet}em)`,
     laptop: `@media (min-width: ${breakpoints.laptop}em)`,
     desktop: `@media (min-width: ${breakpoints.desktop}em)`,
+  },
+  levels: {
+    thirdUnder: -30,
+    secondUnder: -20,
+    firstUnder: -10,
+    zero: 0,
+    firstAbove: 10,
+    secondAbove: 20,
+    thirdAbove: 30
   }
 }

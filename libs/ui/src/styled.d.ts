@@ -15,6 +15,15 @@ declare module "styled-components" {
       tablet: string
       laptop: string
       desktop: string
+    },
+    levels: {
+      thirdUnder: number
+      secondUnder: number
+      firstUnder: number
+      zero: number
+      firstAbove: number
+      secondAbove: number
+      thirdAbove: number
     }
   }
 }
