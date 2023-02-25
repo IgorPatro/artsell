@@ -13,7 +13,7 @@ export const MobileNavigationWrapper = styled.nav<MobileNavigationProps>`
   background-color: black;
   transform: ${({ isOpen }) => (isOpen ? "translateX(120%)" : "translateX(0)")}
     translateY(-50%);
-  z-index: 3;
+  z-index: ${({ theme }) => theme.levels.firstAbove};
   transition: transform 0.3s ease-in-out;
 `
 

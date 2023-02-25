@@ -9,7 +9,7 @@ export const NavigationWrapper = styled.nav`
   background-color: transparent;
   align-items: center;
   padding: 2rem;
-  z-index: 5;
+  z-index: ${({ theme }) => theme.levels.secondAbove};
   transition-timing-function: ease-in;
   transition: 0.2s;
 
@@ -35,7 +35,7 @@ export const Logo = styled.img`
   max-height: 5.5rem;
   width: 4.5rem;
   max-width: 50vw;
-  z-index: 5;
+  z-index: ${({ theme }) => theme.levels.secondAbove};
   ${({ theme }) => theme.MQ.laptop} {
     width: 6rem;
   }

@@ -24,7 +24,7 @@ export const Button = styled.button<HamburgerProps>`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  z-index: 5;
+  z-index: ${({ theme }) => theme.levels.secondAbove};
 
   ${({ theme }) => theme.MQ.laptop} {
     display: none;
