@@ -2,6 +2,7 @@ import { AppProps } from "next/app"
 import { ThemeProvider } from "styled-components"
 import { GlobalStyles } from "@artsell/ui"
 import { theme } from "@artsell/ui"
+import { Layout } from "@artsell/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AuthContextProvider } from "@artsell/context"
@@ -26,9 +27,11 @@ const App = ({ Component, pageProps }: AppProps) => {
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
+          {/* <Layout> */}
           <main className={`main ${poppins.className}`}>
             <Component {...pageProps} />
           </main>
+          {/* </Layout> */}
         </ThemeProvider>
       </AuthContextProvider>
     </QueryClientProvider>
