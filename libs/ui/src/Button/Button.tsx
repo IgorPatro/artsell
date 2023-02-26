@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 
 const Styled = styled.button`
-  background-color: red;
-  color: ${({ theme }) => theme.palette.primary};
+  background-color: #222;
+  color: white;
   font-size: 2rem;
   padding: 1rem;
   border: none;
@@ -12,7 +12,7 @@ const Styled = styled.button`
   transition: background-color 0.1s ease-in-out;
 
   &:hover {
-    background-color: #000;
+    background-color: black;
   }
 `
 

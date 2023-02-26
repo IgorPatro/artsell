@@ -2,28 +2,39 @@ import { AppProps } from "next/app"
 import { ThemeProvider } from "styled-components"
 import { GlobalStyles } from "@artsell/ui"
 import { theme } from "@artsell/ui"
+import { Layout } from "@artsell/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AuthContextProvider } from "@artsell/context"
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "700"],
 })
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+})
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          <main className={`main ${poppins.className}`}>
-            <Component {...pageProps} />
-          </main>
+          <Layout>
+            <main className={`main ${poppins.className}`}>
+              <Component {...pageProps} />
+            </main>
+          </Layout>
         </ThemeProvider>
-      </QueryClientProvider>
-    </>
+      </AuthContextProvider>
+    </QueryClientProvider>
   )
 }
 

@@ -1,0 +1,82 @@
+# This is a "default" file from /etc/nginx/sites-enabled
+# If making changes on server - make sure to copy it here!
+
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name _;
+
+  #root /home/deployer/exp;
+  #index index.html;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name ap1exp.byst.re;
+
+  location / {
+    proxy_pass http://localhost:5002;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name ap1dev.byst.re;
+
+  location / {
+    proxy_pass http://localhost:5001;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name ap1prod.byst.re;
+
+  location / {
+    proxy_pass http://localhost:5000;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name experimental.byst.re;
+
+  location / {
+    proxy_pass http://localhost:3002;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name development.byst.re;
+
+  location / {
+    proxy_pass http://localhost:3001;
+  }
+}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name production.byst.re;
+
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+}
+
