@@ -8,9 +8,9 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <S.LayoutWrapper>
+    <>
       <Navigation />
-      {children}
-    </S.LayoutWrapper>
+      <S.ContentWrapper>{children}</S.ContentWrapper>
+    </>
   )
 }
