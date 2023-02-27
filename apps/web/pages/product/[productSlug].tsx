@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ProductPage = ({ data }: Props) => {
-  const { cartId } = useAuthContext()
+  const { cartId, setCartId } = useAuthContext()
 
   const { mutate: addToCart } = useMutation({
     mutationFn: async (data: CartItemRequest) =>
@@ -20,6 +20,7 @@ const ProductPage = ({ data }: Props) => {
         cartId ? `/carts/${cartId}` : `/carts/`,
         data,
       ),
+    onSuccess: (data) => !cartId && setCartId(data.id),
     onError: (error) => console.log(error),
   })
 

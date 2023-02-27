@@ -9,6 +9,9 @@ const IndexPage = ({ data }: Props) => {
   return (
     <>
       <h1>Index Page</h1>
+      <Link href="/cart">Koszyk</Link>
+      <br />
+      <br />
       {data.map((product) => (
         <div key={product.id}>
           <Link href={`/product/${product.slug}`}>{product.name}</Link>

@@ -41,7 +41,6 @@ const CartPage = () => {
       <br />
       <br />
       <br />
-
       {!cartId || isLoading ? (
         <h2>Twój koszyk jest pusty!</h2>
       ) : (
@@ -62,6 +61,7 @@ const CartPage = () => {
                   {item.product.price} zł X
                   <input
                     type="number"
+                    min={1}
                     defaultValue={item.quantity}
                     disabled={isLoading}
                     onChange={(e) =>

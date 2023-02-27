@@ -1,13 +1,14 @@
 import * as React from "react"
 import { useQuery } from "@tanstack/react-query"
 import network, { type User } from "@artsell/network"
-import { parseCookies } from "nookies"
 import { cartCookieName } from "@artsell/constants"
+import { parseCookies } from "nookies"
 
 interface AuthState {
   isAuthenticated: boolean
   user?: User
   cartId?: string
+  setCartId: (cartId: string) => void
 }
 
 interface Props {
@@ -22,8 +23,9 @@ export const AuthContextProvider = (props: Props) => {
     queryFn: () => network.get<User>("/users/me"),
   })
   const { [cartCookieName]: cookiesCartId } = parseCookies()
-
-  const cartId = isSuccess ? data.cart.id : cookiesCartId
+  const [cartId, setCartId] = React.useState(
+    isSuccess ? data?.cart.id : cookiesCartId,
+  )
 
   return (
     <AuthContext.Provider
@@ -31,6 +33,7 @@ export const AuthContextProvider = (props: Props) => {
         isAuthenticated: isSuccess,
         user: data,
         cartId,
+        setCartId,
       }}
     >
       {props.children}
