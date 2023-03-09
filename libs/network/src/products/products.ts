@@ -5,8 +5,7 @@ import network from ".."
 export type Product = ProductDB
 
 export const fetchProducts = async () => {
-  const data = await network.get<Product[]>("/products")
-  return data
+  return await network.get<Product[]>("/products")
 }
 
 export const useProductsQuery = () =>

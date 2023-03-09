@@ -4,6 +4,8 @@ import {
   CartItem as CartItemDB,
   Product as ProductDB,
 } from "@artsell/database"
+import network from ".."
+import { useQuery } from "@tanstack/react-query"
 
 export interface CartItem extends CartItemDB {
   product: ProductDB
@@ -12,6 +14,17 @@ export interface CartItem extends CartItemDB {
 export interface Cart extends CartDB {
   items: CartItem[]
 }
+
+export const fetchCart = async (cartId?: string) => {
+  return await network.get<Cart>(`/carts/${cartId}`)
+}
+
+export const useCartQuery = (enabled: boolean, cartId?: string) =>
+  useQuery({
+    queryKey: ["cart"],
+    queryFn: () => fetchCart(cartId),
+    enabled,
+  })
 
 export const CartItemSchema = z.object({
   productId: z.string(),

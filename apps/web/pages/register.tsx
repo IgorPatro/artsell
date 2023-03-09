@@ -23,13 +23,17 @@ const RegisterPage = () => {
 
   const router = useRouter()
 
-  const registerGroup = useMutation<RegisterResponse, Error, RegisterRequest>({
+  const registerMutation = useMutation<
+    RegisterResponse,
+    Error,
+    RegisterRequest
+  >({
     mutationFn: async (data: RegisterRequest) => fetchRegister(data),
     onSuccess: () => router.push("/login"),
     onError: (error) => console.log(error),
   })
 
-  const onSubmit = handleSubmit((data) => registerGroup.mutate(data))
+  const onSubmit = handleSubmit((data) => registerMutation.mutate(data))
 
   return (
     <form
@@ -41,7 +45,7 @@ const RegisterPage = () => {
       }}
       onSubmit={onSubmit}
     >
-      {registerGroup.isError && <p>{registerGroup.error.message}</p>}
+      {registerMutation.isError && <p>{registerMutation.error.message}</p>}
       <input
         style={{ border: `1px solid ${errors.firstName ? "red" : "black"}` }}
         placeholder="firstName"

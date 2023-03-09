@@ -1,36 +1,31 @@
 import React from "react"
-import { useAuthContext } from "@artsell/context"
 import Link from "next/link"
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import network, {
-  Cart,
   CartItemRequest,
   CartItem,
   DeleteCartItemRequest,
+  useCartQuery,
 } from "@artsell/network"
 import Image from "next/image"
 import { Button } from "@artsell/ui"
+import { useCartId } from "@artsell/hooks"
 
 const CartPage = () => {
-  const { cartId } = useAuthContext()
+  const cartId = useCartId()
+  const cartQuery = useCartQuery(!!cartId, cartId)
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["/carts/:cartId"],
-    queryFn: () => network.get<Cart>(`/carts/${cartId}`),
-    enabled: !!cartId,
-  })
-
-  const { mutate: deleteCartItem } = useMutation({
+  const deleteMutation = useMutation({
     mutationFn: async (data: DeleteCartItemRequest) =>
       network.delete<CartItem, DeleteCartItemRequest>(`/carts/${cartId}`, data),
-    onSuccess: () => refetch(),
+    onSuccess: () => cartQuery.refetch(),
     onError: (error) => console.log(error),
   })
 
-  const { mutate: updateCartItem } = useMutation({
+  const updateMutation = useMutation({
     mutationFn: async (data: CartItemRequest) =>
       network.put<CartItem, CartItemRequest>(`/carts/${cartId}`, data),
-    onSuccess: () => refetch(),
+    onSuccess: () => cartQuery.refetch(),
     onError: (error) => console.log(error),
   })
 
@@ -41,12 +36,12 @@ const CartPage = () => {
       <br />
       <br />
       <br />
-      {!cartId || isLoading ? (
+      {!cartId || cartQuery.isLoading ? (
         <h2>Twój koszyk jest pusty!</h2>
       ) : (
         <>
-          {data?.items.length ? (
-            data.items.map((item) => (
+          {cartQuery.data?.items.length ? (
+            cartQuery.data.items.map((item) => (
               <div key={item.id}>
                 <Link href={`/product/${item.product.slug}`}>
                   <Image
@@ -63,18 +58,18 @@ const CartPage = () => {
                     type="number"
                     min={1}
                     defaultValue={item.quantity}
-                    disabled={isLoading}
+                    disabled={cartQuery.isLoading}
                     onChange={(e) =>
-                      updateCartItem({
+                      updateMutation.mutate({
                         productId: item.productId,
                         quantity: e.target.valueAsNumber,
                       })
                     }
                   />
                   <Button
-                    disabled={isLoading}
+                    disabled={cartQuery.isLoading}
                     onClick={() =>
-                      deleteCartItem({ productId: item.productId })
+                      deleteMutation.mutate({ productId: item.productId })
                     }
                   >
                     Remove

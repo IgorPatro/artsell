@@ -27,11 +27,10 @@ export type RegisterRequest = z.infer<typeof RegisterSchema>
 export type RegisterResponse = User
 
 export const fetchRegister = async (data: RegisterRequest) => {
-  const res = await network.post<RegisterResponse, RegisterRequest>(
+  return await network.post<RegisterResponse, RegisterRequest>(
     "/auth/register",
     data,
   )
-  return res
 }
 
 // LOGIN
@@ -47,9 +46,5 @@ export type LoginResponse = {
 }
 
 export const fetchLogin = async (data: LoginRequest) => {
-  const res = await network.post<LoginResponse, LoginRequest>(
-    "/auth/login",
-    data,
-  )
-  return res
+  return await network.post<LoginResponse, LoginRequest>("/auth/login", data)
 }

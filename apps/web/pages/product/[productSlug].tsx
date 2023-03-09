@@ -3,16 +3,16 @@ import ReactMarkdown from "react-markdown"
 import Image from "next/image"
 import { Button } from "@artsell/ui"
 import { GetServerSideProps } from "next"
-import { useAuthContext } from "@artsell/context"
 import { useMutation } from "@tanstack/react-query"
 import network, { CartItemRequest, CartItem, Product } from "@artsell/network"
+import { useCartId, saveCartId } from "@artsell/hooks"
 
 interface Props {
   data: Product
 }
 
 const ProductPage = ({ data }: Props) => {
-  const { cartId, setCartId } = useAuthContext()
+  const cartId = useCartId()
 
   const { mutate: addToCart } = useMutation({
     mutationFn: async (data: CartItemRequest) =>
@@ -20,7 +20,7 @@ const ProductPage = ({ data }: Props) => {
         cartId ? `/carts/${cartId}` : `/carts/`,
         data,
       ),
-    onSuccess: (data) => !cartId && setCartId(data.id),
+    onSuccess: (data) => !cartId && saveCartId(data.id),
     onError: (error) => console.log(error),
   })
 
