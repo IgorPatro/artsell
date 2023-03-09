@@ -4,10 +4,11 @@ import { getServerSession } from "@artsell/hooks"
 import { sessionCookieName } from "@artsell/constants"
 import { setCookie } from "nookies"
 import { Button } from "@artsell/ui"
-import network, {
+import {
   LoginSchema,
   LoginRequest,
   LoginResponse,
+  fetchLogin,
 } from "@artsell/network"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -24,9 +25,8 @@ const LoginPage = () => {
 
   const router = useRouter()
 
-  const { mutate } = useMutation<LoginResponse, Error, LoginRequest>({
-    mutationFn: async (data: LoginRequest) =>
-      network.post<LoginResponse, LoginRequest>("/auth/login", data),
+  const loginGroup = useMutation<LoginResponse, Error, LoginRequest>({
+    mutationFn: async (data: LoginRequest) => fetchLogin(data),
     onSuccess: ({ Authorization }) => {
       setCookie(null, sessionCookieName, Authorization)
       router.push("/")
@@ -34,7 +34,7 @@ const LoginPage = () => {
     onError: (error) => console.log(error.message),
   })
 
-  const onSubmit = handleSubmit((data) => mutate(data))
+  const onSubmit = handleSubmit((data) => loginGroup.mutate(data))
 
   return (
     <form

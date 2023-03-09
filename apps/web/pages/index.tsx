@@ -1,4 +1,4 @@
-import network, { Product } from "@artsell/network"
+import { Product, fetchProducts } from "@artsell/network"
 import Link from "next/link"
 
 interface Props {
@@ -24,7 +24,7 @@ const IndexPage = ({ data }: Props) => {
 export default IndexPage
 
 export const getServerSideProps = async () => {
-  const data = await network.get<Product[]>("/products")
+  const data = await fetchProducts()
 
   return {
     props: {

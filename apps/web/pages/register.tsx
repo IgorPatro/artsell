@@ -1,7 +1,8 @@
-import network, {
+import {
   RegisterSchema,
   type RegisterRequest,
   RegisterResponse,
+  fetchRegister,
 } from "@artsell/network"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -22,18 +23,13 @@ const RegisterPage = () => {
 
   const router = useRouter()
 
-  const { mutate, error, isError } = useMutation<
-    RegisterResponse,
-    Error,
-    RegisterRequest
-  >({
-    mutationFn: async (data: RegisterRequest) =>
-      network.post<RegisterResponse, RegisterRequest>("/auth/register", data),
+  const registerGroup = useMutation<RegisterResponse, Error, RegisterRequest>({
+    mutationFn: async (data: RegisterRequest) => fetchRegister(data),
     onSuccess: () => router.push("/login"),
     onError: (error) => console.log(error),
   })
 
-  const onSubmit = handleSubmit((data) => mutate(data))
+  const onSubmit = handleSubmit((data) => registerGroup.mutate(data))
 
   return (
     <form
@@ -45,7 +41,7 @@ const RegisterPage = () => {
       }}
       onSubmit={onSubmit}
     >
-      {isError && <p>{error.message}</p>}
+      {registerGroup.isError && <p>{registerGroup.error.message}</p>}
       <input
         style={{ border: `1px solid ${errors.firstName ? "red" : "black"}` }}
         placeholder="firstName"

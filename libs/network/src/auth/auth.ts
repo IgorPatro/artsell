@@ -1,6 +1,8 @@
 import { z } from "zod"
-import { User } from "../users/user"
+import { User } from "../users/users"
+import network from ".."
 
+// REGISTER
 export const RegisterSchema = z
   .object({
     email: z.string().email({ message: "Email nie jest poprawny" }),
@@ -23,3 +25,31 @@ export const RegisterSchema = z
 export type RegisterRequest = z.infer<typeof RegisterSchema>
 
 export type RegisterResponse = User
+
+export const fetchRegister = async (data: RegisterRequest) => {
+  const res = await network.post<RegisterResponse, RegisterRequest>(
+    "/auth/register",
+    data,
+  )
+  return res
+}
+
+// LOGIN
+export const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+})
+
+export type LoginRequest = z.infer<typeof LoginSchema>
+
+export type LoginResponse = {
+  Authorization: string
+}
+
+export const fetchLogin = async (data: LoginRequest) => {
+  const res = await network.post<LoginResponse, LoginRequest>(
+    "/auth/login",
+    data,
+  )
+  return res
+}
