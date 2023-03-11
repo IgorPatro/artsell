@@ -7,7 +7,7 @@ import { CartItemRequest } from "@artsell/network"
 export class CartsService {
   constructor(private prisma: PrismaService) {}
 
-  async findCart(cartId: string) {
+  async groupCartByOwner(cartId: string) {
     const cart = await this.prisma.cart.findUnique({
       where: {
         id: cartId,
@@ -16,6 +16,7 @@ export class CartsService {
         items: {
           include: {
             product: true,
+            delivery: true,
           },
           orderBy: {
             id: "asc",
@@ -27,7 +28,45 @@ export class CartsService {
 
     if (!cart) throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND)
 
-    return cart
+    const groupedItems = this.groupItemsByOwner(cart.items)
+
+    return {
+      ...cart,
+      items: groupedItems,
+      price: Number(this.countPriceOfCart(groupedItems).toFixed(2)),
+    }
+  }
+
+  groupItemsByOwner(items: any) {
+    return items.reduce((acc: any, item: any) => {
+      const currentOwnerId = item.product.ownerId
+
+      if (!acc[currentOwnerId]) {
+        acc[currentOwnerId] = {
+          items: [],
+        }
+      }
+
+      acc[currentOwnerId].items.push(item)
+
+      return acc
+    }, {})
+  }
+
+  countPriceOfCart(cart: any) {
+    const total = Object.values(cart).reduce((acc: number, item: any) => {
+      const price = this.countPriceOfGroupedItems(item.items)
+      return acc + price
+    }, 0)
+
+    return total
+  }
+
+  countPriceOfGroupedItems(groupedItems: any) {
+    return groupedItems.reduce((acc: number, item: any) => {
+      const price = item.product.price * item.quantity
+      return acc + price
+    }, 0)
   }
 
   async findUserCart(userId: string) {

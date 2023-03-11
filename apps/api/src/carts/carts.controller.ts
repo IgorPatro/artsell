@@ -16,7 +16,7 @@ export class CartsController {
   @Public()
   @Get("/:cartId")
   public async findOne(@Param("cartId") cartId: string) {
-    return this.cartsService.findCart(cartId)
+    return this.cartsService.groupCartByOwner(cartId)
   }
 
   @Public()
