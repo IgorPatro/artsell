@@ -1,3 +1,8 @@
 import { io } from "socket.io-client"
 
-export const useSocket = () => io("http://localhost:5000")
+export const useSocket = (productSlug: string) =>
+  io("http://localhost:5000", {
+    query: {
+      productSlug,
+    },
+  })
