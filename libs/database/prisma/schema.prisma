@@ -35,15 +35,24 @@ model Product {
   content     String
 }
 
+enum AuctionStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  PAUSED
+}
+
 model Auction {
-  id            String       @id @default(uuid())
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @default(now()) @updatedAt
+  id            String        @id @default(uuid())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
   expiresAt     DateTime
+  endedAt       DateTime?
+  pausedAt      DateTime?
   name          String
   description   String
-  slug          String       @unique
-  owner         User         @relation(fields: [ownerId], references: [id])
+  slug          String        @unique
+  owner         User          @relation(fields: [ownerId], references: [id])
   ownerId       String
   image         String
   currentPrice  Float
@@ -51,6 +60,7 @@ model Auction {
   buyNowPrice   Float
   content       String
   BidHistory    BidHistory[]
+  status        AuctionStatus @default(PENDING)
 }
 
 model BidHistory {

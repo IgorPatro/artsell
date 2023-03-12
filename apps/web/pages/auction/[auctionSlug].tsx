@@ -4,6 +4,8 @@ import network from "@artsell/network"
 import Bidder from "../../src/Bidder"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
+import { parseCookies } from "nookies"
+import { sessionCookieName } from "@artsell/constants"
 
 interface Props {
   auctionSlug: string
@@ -13,9 +15,10 @@ interface Props {
 const AuctionPage = ({ data, auctionSlug }: Props) => {
   const [currentPrice, setCurrentPrice] = React.useState<number>()
   const socket = useSocket(auctionSlug)
+  const { [sessionCookieName]: session } = parseCookies()
 
   React.useEffect(() => {
-    socket.on("connect", () => console.log("Connected"))
+    socket.on("connect", () => console.log("Connected", socket.id))
     socket.on("disconnect", () => console.log("Disconnected"))
 
     socket.on("hello", (currentPrice) => setCurrentPrice(Number(currentPrice)))
@@ -25,10 +28,13 @@ const AuctionPage = ({ data, auctionSlug }: Props) => {
     return () => {
       socket.disconnect()
     }
-  }, [])
+  }, [socket])
 
   const bid = (newPrice: number) => {
-    socket.emit("bid", newPrice)
+    socket.emit("bid", {
+      session,
+      newPrice,
+    })
   }
 
   return (
