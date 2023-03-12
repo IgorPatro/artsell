@@ -9,6 +9,7 @@ import { PrismaService } from "../prisma.service"
 import { JwtService } from "@nestjs/jwt"
 import { AuthService } from "../auth/auth.service"
 import { User } from "@artsell/database"
+import { Cron } from "@nestjs/schedule"
 
 @WebSocketGateway({
   cors: {
@@ -67,6 +68,12 @@ export class WebsocketGateway implements OnGatewayConnection {
     })
 
     if (!auction) return socket.emit("bid-fail", "Auction not found")
+    if (
+      auction.status !== "PENDING" ||
+      auction.expiresAt.getTime() <= Date.now()
+    )
+      return socket.emit("bid-fail", "Auction ended")
+
     if (data.newPrice <= auction.currentPrice)
       return socket.emit("bid-fail", "Price too low")
 
@@ -98,5 +105,77 @@ export class WebsocketGateway implements OnGatewayConnection {
     return this.server
       .to(auctionSlug)
       .emit("bid-success", updatedAuction.currentPrice)
+  }
+
+  @Cron("0 0 * * * *") // Every hour
+  async handleFinishAuctions() {
+    const auctions = await this.prisma.auction.findMany({
+      where: {
+        status: "PENDING",
+      },
+    })
+
+    const now = Date.now()
+
+    auctions.forEach(async (auction) => {
+      if (auction.expiresAt.getTime() > now) return
+
+      await this.prisma.auction.update({
+        where: {
+          id: auction.id,
+        },
+        data: {
+          status: "COMPLETED",
+          endedAt: new Date(),
+        },
+      })
+
+      // TODO: Dodać wysyłanie maila do zwycięzcy
+      // TODO: Dodać wysyłanie websocketa do zwycięzcy
+
+      const bidHistory = await this.prisma.bidHistory.findMany({
+        where: {
+          auctionId: auction.id,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: true,
+        },
+      })
+
+      if (bidHistory.length === 0) return console.log("Brak zwycięzcy")
+
+      const [wonBid] = bidHistory
+
+      await this.prisma.auction.update({
+        where: {
+          id: auction.id,
+        },
+        data: {
+          winner: {
+            connect: {
+              id: wonBid.userId,
+            },
+          },
+        },
+      })
+
+      console.log(
+        "Winner: ",
+        `${wonBid.user.firstName} ${wonBid.user.lastName} (${wonBid.user.email}) - ${wonBid.price}`,
+      )
+
+      if (wonBid.socketId) {
+        this.server.to(wonBid.socketId).emit("auction-winner", {
+          status: "COMPLETED",
+        })
+      }
+
+      this.server.to(auction.slug).emit("auction-finished", {
+        status: "COMPLETED",
+      })
+    })
   }
 }

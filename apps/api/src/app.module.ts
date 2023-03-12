@@ -7,6 +7,7 @@ import { ProductsModule } from "./products/products.module"
 import { AuctionsModule } from "./auctions/auctions.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
 import { ConfigModule } from "@nestjs/config"
+import { ScheduleModule } from "@nestjs/schedule"
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from "@nestjs/config"
     UsersModule,
     ProductsModule,
     AuctionsModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [

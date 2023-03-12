@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id         String       @id @default(uuid())
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @default(now()) @updatedAt
-  email      String       @unique
-  password   String
-  firstName  String
-  lastName   String
-  Product    Product[]
-  Auction    Auction[]
-  BidHistory BidHistory[]
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  email       String       @unique
+  password    String
+  firstName   String
+  lastName    String
+  Product     Product[]
+  Auction     Auction[]
+  BidHistory  BidHistory[]
+  WonAuctions Auction[]    @relation("WonAuctions")
 }
 
 model Product {
@@ -37,9 +38,9 @@ model Product {
 
 enum AuctionStatus {
   PENDING
-  ACTIVE
   COMPLETED
   PAUSED
+  DELETED
 }
 
 model Auction {
@@ -61,6 +62,8 @@ model Auction {
   content       String
   BidHistory    BidHistory[]
   status        AuctionStatus @default(PENDING)
+  winner        User?         @relation("WonAuctions", fields: [winnerId], references: [id])
+  winnerId      String?
 }
 
 model BidHistory {
