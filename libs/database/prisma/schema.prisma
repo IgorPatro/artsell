@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
-  email     String    @unique
-  password  String
-  firstName String
-  lastName  String
-  Product   Product[]
+  id         String       @id @default(uuid())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
+  email      String       @unique
+  password   String
+  firstName  String
+  lastName   String
+  Product    Product[]
+  Auction    Auction[]
+  BidHistory BidHistory[]
 }
 
 model Product {
@@ -31,4 +33,33 @@ model Product {
   media       String[]
   price       Float
   content     String
+}
+
+model Auction {
+  id            String       @id @default(uuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
+  expiresAt     DateTime
+  name          String
+  description   String
+  slug          String       @unique
+  owner         User         @relation(fields: [ownerId], references: [id])
+  ownerId       String
+  image         String
+  currentPrice  Float
+  startingPrice Float
+  buyNowPrice   Float
+  content       String
+  BidHistory    BidHistory[]
+}
+
+model BidHistory {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId String
+  price     Float
+  socketId  String? // socket id of the user who placed the bid to send him success message
 }

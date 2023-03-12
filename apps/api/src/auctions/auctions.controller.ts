@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common"
+import { Controller, Get, Param } from "@nestjs/common"
 import { Public } from "../decorators/public.decorator"
 import { AuctionsService } from "./auctions.service"
 
@@ -7,10 +7,8 @@ export class AuctionsController {
   constructor(private readonly auctionsService: AuctionsService) {}
 
   @Public()
-  @Get("")
-  public async findNew() {
-    return {
-      test: "trueee"
-    }
+  @Get(":slugOrId")
+  public async findOne(@Param("slugOrId") slugOrId: string) {
+    return this.auctionsService.findOne(slugOrId)
   }
 }

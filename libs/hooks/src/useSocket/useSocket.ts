@@ -1,8 +1,8 @@
 import { io } from "socket.io-client"
 
-export const useSocket = (productSlug: string) =>
+export const useSocket = (auctionSlug: string) =>
   io("http://localhost:5000", {
     query: {
-      productSlug,
+      auctionSlug,
     },
   })

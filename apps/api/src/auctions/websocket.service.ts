@@ -19,45 +19,47 @@ export class WebsocketGateway implements OnGatewayConnection {
   server!: Server
 
   async handleConnection(socket: Socket) {
-    const { productSlug } = socket.handshake.query
-    if (!productSlug) return
+    const { auctionSlug } = socket.handshake.query
+    if (!auctionSlug) return
 
-    const product = await this.prisma.product.findFirst({
+    const auction = await this.prisma.auction.findFirst({
       where: {
-        slug: productSlug as string,
+        slug: auctionSlug as string,
       },
     })
 
-    socket.emit("hello", product?.price)
-    return socket.join(productSlug)
+    socket.emit("hello", auction?.currentPrice)
+    return socket.join(auctionSlug)
   }
 
   @SubscribeMessage("bid")
   async handleBid(socket: Socket, newPrice: number) {
-    console.log("bid", newPrice, socket.handshake.query.productSlug, socket.id)
+    console.log("bid", newPrice, socket.handshake.query, socket.id)
 
-    const { productSlug } = socket.handshake.query
-    if (!productSlug) return socket.emit("bid-fail", "No product slug")
+    const { auctionSlug } = socket.handshake.query
+    if (!auctionSlug) return socket.emit("bid-fail", "No auction slug")
 
-    const product = await this.prisma.product.findFirst({
+    const auction = await this.prisma.auction.findFirst({
       where: {
-        slug: productSlug as string,
+        slug: auctionSlug as string,
       },
     })
 
-    if (!product) return socket.emit("bid-fail", "Product not found")
-    if (newPrice <= product.price)
+    if (!auction) return socket.emit("bid-fail", "Product not found")
+    if (newPrice <= auction.currentPrice)
       return socket.emit("bid-fail", "Price too low")
 
-    const updatedProduct = await this.prisma.product.update({
+    const updatedProduct = await this.prisma.auction.update({
       where: {
-        slug: productSlug as string,
+        slug: auctionSlug as string,
       },
       data: {
-        price: newPrice,
+        currentPrice: newPrice,
       },
     })
 
-    return this.server.to(productSlug).emit("bid-success", updatedProduct.price)
+    return this.server
+      .to(auctionSlug)
+      .emit("bid-success", updatedProduct.currentPrice)
   }
 }
