@@ -41,58 +41,64 @@ jobs:
         run: |
           cd build
           touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL_PROD }} >> .env
+          echo DATABASE_URL=${{ vars.DATABASE_URL_PROD }} >> .env
           echo JWT_SECRET=${{ vars.JWT_SECRET_PROD }} >> .env
           echo TOKEN_EXPIRY=${{ vars.TOKEN_EXPIRY_PROD }} >> .env
 
           echo BRANCH=PRODUCTION >> .env
+          echo API_PORT=5000 >> .env
 
       - name: Stop current application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_PROD }}
+          username: ${{ vars.DEPLOY_USER_PROD }}
+          password: ${{ vars.DEPLOY_PASSWORD_PROD }}
+          port: ${{ vars.DEPLOY_PORT_PROD }}
           script: |
-            cd /home/deployer/api/
-            pm2 stop API || true
+            cd /home/deployer/prod/api/
+            pm2 stop API-Prod || true
 
       - name: Upload files
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_DEV_EXP }}
+          SSH_PRIVATE_KEY: ${{ vars.DEPLOY_KEY_PROD }}
           SOURCE: "build/"
-          REMOTE_HOST: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          REMOTE_USER: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          TARGET: "/home/deployer/api"
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST_PROD }}
+          REMOTE_USER: ${{ vars.DEPLOY_USER_PROD }}
+          REMOTE_PORT: ${{ vars.DEPLOY_PORT_PROD }}
+          TARGET: "/home/deployer/prod/api"
 
       - name: Install remote packages and generate prisma client
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_PROD }}
+          username: ${{ vars.DEPLOY_USER_PROD }}
+          password: ${{ vars.DEPLOY_PASSWORD_PROD }}
+          port: ${{ vars.DEPLOY_PORT_PROD }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/prod/api/
             yarn
             npx prisma generate
 
       - name: Apply database migrations
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_PROD }}
+          username: ${{ vars.DEPLOY_USER_PROD }}
+          password: ${{ vars.DEPLOY_PASSWORD_PROD }}
+          port: ${{ vars.DEPLOY_PORT_PROD }}
           script: |
-            cd /home/deployer/api/
+            cd /home/deployer/prod/api/
             npx prisma migrate deploy
 
       - name: Start application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ vars.DEPLOY_HOST_DEV_EXP }}
-          username: ${{ vars.DEPLOY_USER_DEV_EXP }}
-          password: ${{ vars.DEPLOY_PASSWORD_DEV_EXP }}
+          host: ${{ vars.DEPLOY_HOST_PROD }}
+          username: ${{ vars.DEPLOY_USER_PROD }}
+          password: ${{ vars.DEPLOY_PASSWORD_PROD }}
+          port: ${{ vars.DEPLOY_PORT_PROD }}
           script: |
-            cd /home/deployer/api/
-            pm2 start main.js --name API
+            cd /home/deployer/prod/api/
+            pm2 start main.js --name API-Prod

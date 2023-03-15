@@ -3,6 +3,7 @@ import { AppController } from "./app.controller"
 import { PrismaService } from "./prisma.service"
 import { AuthModule } from "./auth/auth.module"
 import { UsersModule } from "./users/users.module"
+import { CartsModule } from "./carts/carts.module"
 import { ProductsModule } from "./products/products.module"
 import { AuctionsModule } from "./auctions/auctions.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
@@ -19,6 +20,7 @@ import { ScheduleModule } from "@nestjs/schedule"
     ProductsModule,
     AuctionsModule,
     ScheduleModule.forRoot(),
+    CartsModule,
   ],
   controllers: [AppController],
   providers: [

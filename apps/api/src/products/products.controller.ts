@@ -7,13 +7,13 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Public()
-  @Get("")
+  @Get("/")
   public async findAll() {
     return this.productsService.findAll()
   }
 
   @Public()
-  @Get(":slugOrId")
+  @Get("/:slugOrId")
   public async findOne(@Param("slugOrId") slugOrId: string) {
     return this.productsService.findOne(slugOrId)
   }

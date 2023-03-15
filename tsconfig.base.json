@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@artsell/constants": ["libs/constants/src/index.ts"],
+      "@artsell/context": ["libs/context/src/index.ts"],
       "@artsell/database": ["libs/database/src/index.ts"],
       "@artsell/hooks": ["libs/hooks/src/index.ts"],
       "@artsell/network": ["libs/network/src/index.ts"],
