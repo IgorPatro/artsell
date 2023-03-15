@@ -8,15 +8,18 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
-  email     String    @unique
-  password  String
-  firstName String
-  lastName  String
-  products  Product[]
-  cart      Cart?
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  email       String       @unique
+  password    String
+  firstName   String
+  lastName    String
+  Auction     Auction[]
+  BidHistory  BidHistory[]
+  WonAuctions Auction[]    @relation("WonAuctions")
+  products    Product[]
+  cart        Cart?
 }
 
 model Product {
@@ -67,4 +70,45 @@ model Delivery {
   name      String
   price     Float
   CartItem  CartItem[]
+}
+
+enum AuctionStatus {
+  PENDING
+  COMPLETED
+  PAUSED
+  DELETED
+}
+
+model Auction {
+  id            String        @id @default(uuid())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+  expiresAt     DateTime
+  endedAt       DateTime?
+  pausedAt      DateTime?
+  name          String
+  description   String
+  slug          String        @unique
+  owner         User          @relation(fields: [ownerId], references: [id])
+  ownerId       String
+  image         String
+  currentPrice  Float
+  startingPrice Float
+  buyNowPrice   Float
+  content       String
+  BidHistory    BidHistory[]
+  status        AuctionStatus @default(PENDING)
+  winner        User?         @relation("WonAuctions", fields: [winnerId], references: [id])
+  winnerId      String?
+}
+
+model BidHistory {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId String
+  price     Float
+  socketId  String? // socket id of the user who placed the bid to send him success message
 }

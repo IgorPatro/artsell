@@ -1,4 +1,5 @@
 import React from "react"
+import network, { Product } from "@artsell/network"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
 import { Button } from "@artsell/ui"
@@ -26,10 +27,7 @@ const ProductPage = ({ data }: Props) => {
 
   return (
     <div>
-      <h1>ProductPage</h1>
-      <h3>
-        {data.name}, {data.price} zł
-      </h3>
+      <h1>{data.name}</h1>
       <Image src={data.image} alt={data.name} width={400} height={400} />
       <p>{data.description}</p>
       <p>Created at: {new Date(data.createdAt).toDateString()}</p>

@@ -5,8 +5,10 @@ import { AuthModule } from "./auth/auth.module"
 import { UsersModule } from "./users/users.module"
 import { CartsModule } from "./carts/carts.module"
 import { ProductsModule } from "./products/products.module"
+import { AuctionsModule } from "./auctions/auctions.module"
 import { JwtAuthGuard } from "./auth/jwt-auth.guard"
 import { ConfigModule } from "@nestjs/config"
+import { ScheduleModule } from "@nestjs/schedule"
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ConfigModule } from "@nestjs/config"
     AuthModule,
     UsersModule,
     ProductsModule,
+    AuctionsModule,
+    ScheduleModule.forRoot(),
     CartsModule,
   ],
   controllers: [AppController],
