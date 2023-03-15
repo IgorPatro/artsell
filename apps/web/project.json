@@ -10,7 +10,12 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/web",
-        "outputPath": "dist/apps/web"
+        "outputPath": "dist/apps/web",
+        "assets": {
+          "input": "../../libs/ui/images",
+          "glob": "**/*",
+          "output": "/assets/"
+        }
       },
       "configurations": {
         "development": {
