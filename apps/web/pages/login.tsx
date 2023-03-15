@@ -4,14 +4,15 @@ import { getServerSession } from "@artsell/hooks"
 import { sessionCookieName } from "@artsell/constants"
 import { setCookie } from "nookies"
 import { Button } from "@artsell/ui"
-import network, {
+import {
   LoginSchema,
   LoginRequest,
   LoginResponse,
+  fetchLogin,
 } from "@artsell/network"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 const LoginPage = () => {
   const {
@@ -23,18 +24,19 @@ const LoginPage = () => {
   })
 
   const router = useRouter()
+  const queryClient = useQueryClient()
 
-  const { mutate } = useMutation<LoginResponse, Error, LoginRequest>({
-    mutationFn: async (data: LoginRequest) =>
-      network.post<LoginResponse, LoginRequest>("/auth/login", data),
+  const loginMutation = useMutation<LoginResponse, Error, LoginRequest>({
+    mutationFn: async (data: LoginRequest) => fetchLogin(data),
     onSuccess: ({ Authorization }) => {
       setCookie(null, sessionCookieName, Authorization)
       router.push("/")
+      queryClient.invalidateQueries({ queryKey: ["me"] })
     },
     onError: (error) => console.log(error.message),
   })
 
-  const onSubmit = handleSubmit((data) => mutate(data))
+  const onSubmit = handleSubmit((data) => loginMutation.mutate(data))
 
   return (
     <form

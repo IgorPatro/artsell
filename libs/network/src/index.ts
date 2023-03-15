@@ -1,8 +1,10 @@
-export * from "./auth/login"
-export * from "./auth/register"
-export * from "./users/user"
+export * from "./auth/auth"
+export * from "./users/users"
 export * from "./messages/messages"
-export * from "./products/find-all-products"
+export * from "./products/products"
+export * from "./carts/carts"
+import { parseCookies } from "nookies"
+import { sessionCookieName } from "@artsell/constants"
 
 export const backendUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -16,11 +18,14 @@ export const requestData = async <Res, Payload>(
   payload?: Payload,
   options?: Options,
 ) => {
+  const { [sessionCookieName]: session } = parseCookies()
+
   const res = await fetch(`${backendUrl}${url}`, {
     method,
     body: JSON.stringify(payload),
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${session}`,
       ...options?.headers,
     },
   })
