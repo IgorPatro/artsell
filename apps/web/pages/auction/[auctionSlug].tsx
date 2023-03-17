@@ -74,7 +74,6 @@ const AuctionPage = ({ data, auctionSlug, user }: Props) => {
       <p>{data.description}</p>
       <p>Created at: {new Date(data.createdAt).toDateString()}</p>
       <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
-      <p>{new Date(data.endedAt).toTimeString()}</p>
       <p>{data.endedAt?.toString()}</p>
       <br />
       <ReactMarkdown>{data.content}</ReactMarkdown>
@@ -84,7 +83,7 @@ const AuctionPage = ({ data, auctionSlug, user }: Props) => {
 
 export default AuctionPage
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: any) => {
   const { auctionSlug } = ctx.query
   const data = await network.get(`/auctions/${auctionSlug}`)
   const session = await getServerSession(ctx)
