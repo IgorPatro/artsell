@@ -2,7 +2,7 @@ import { AppProps } from "next/app"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import "../src/tailwind.css"
+import "tailwindcss/tailwind.css"
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
