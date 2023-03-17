@@ -5,6 +5,7 @@ import { theme } from "@artsell/ui"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { ChakraProvider } from "@chakra-ui/react"
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
@@ -23,12 +24,14 @@ const queryClient = new QueryClient({
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
+      {/* <ThemeProvider theme={theme}> */}
+      <ChakraProvider>
+        {/* <GlobalStyles /> */}
         <main className={`main ${poppins.className}`}>
           <Component {...pageProps} />
         </main>
-      </ThemeProvider>
+      </ChakraProvider>
+      {/* </ThemeProvider> */}
       <ReactQueryDevtools />
     </QueryClientProvider>
   )
