@@ -22,22 +22,22 @@ const AuctionPage = ({ data, auctionSlug, user }: Props) => {
   const socket = useSocket(auctionSlug)
   const { [sessionCookieName]: session } = parseCookies()
 
-  React.useEffect(() => {
-    socket.on("connect", () => console.log("Connected", socket.id))
-    socket.on("disconnect", () => console.log("Disconnected"))
+  // React.useEffect(() => {
+  //   socket.on("connect", () => console.log("Connected", socket.id))
+  //   socket.on("disconnect", () => console.log("Disconnected"))
 
-    socket.on("hello", (currentPrice) => setCurrentPrice(Number(currentPrice)))
-    socket.on("bid-success", (newPrice) => setCurrentPrice(newPrice))
-    socket.on("bid-fail", (data) => console.log(data))
+  //   socket.on("hello", (currentPrice) => setCurrentPrice(Number(currentPrice)))
+  //   socket.on("bid-success", (newPrice) => setCurrentPrice(newPrice))
+  //   socket.on("bid-fail", (data) => console.log(data))
 
-    socket.on("auction-finished", (data) => setStatus(data.status))
+  //   socket.on("auction-finished", (data) => setStatus(data.status))
 
-    socket.on("auction-winner", (data) => console.log("WYGRAŁEŚ AUKCJE!", data))
+  //   socket.on("auction-winner", (data) => console.log("WYGRAŁEŚ AUKCJE!", data))
 
-    return () => {
-      socket.disconnect()
-    }
-  }, [socket])
+  //   return () => {
+  //     socket.disconnect()
+  //   }
+  // }, [socket])
 
   const bid = (newPrice: number) => {
     socket.emit("bid", {
@@ -74,7 +74,6 @@ const AuctionPage = ({ data, auctionSlug, user }: Props) => {
       <p>{data.description}</p>
       <p>Created at: {new Date(data.createdAt).toDateString()}</p>
       <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
-      <p>{new Date(data.endedAt).toTimeString()}</p>
       <p>{data.endedAt?.toString()}</p>
       <br />
       <ReactMarkdown>{data.content}</ReactMarkdown>
@@ -84,7 +83,7 @@ const AuctionPage = ({ data, auctionSlug, user }: Props) => {
 
 export default AuctionPage
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: any) => {
   const { auctionSlug } = ctx.query
   const data = await network.get(`/auctions/${auctionSlug}`)
   const session = await getServerSession(ctx)

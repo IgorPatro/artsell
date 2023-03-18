@@ -2,7 +2,9 @@ import { AppProps } from "next/app"
 import { Poppins } from "@next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import "tailwindcss/tailwind.css"
+import { ChakraProvider } from "@chakra-ui/react"
+import "../src/tailwind.css"
+import { extendTheme } from "@chakra-ui/react"
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
@@ -18,12 +20,21 @@ const queryClient = new QueryClient({
   },
 })
 
+const theme = extendTheme({
+  fonts: {
+    heading: `'Poppins', sans-serif`,
+    body: `'Poppins', sans-serif`,
+  },
+})
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <main className={`main ${poppins.className}`}>
-        <Component {...pageProps} />
-      </main>
+      <ChakraProvider theme={theme}>
+        <main className={`main ${poppins.className}`}>
+          <Component {...pageProps} />
+        </main>
+      </ChakraProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   )
