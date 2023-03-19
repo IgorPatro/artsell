@@ -11,7 +11,7 @@ export const NavigationContent = () => {
       <div className="lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
         <Search />
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-2 flex-col items-center lg:flex-row lg:gap-4">
         <div className="flex gap-1">
           <IconButton aria-label="Aukcje" icon={<AuctionIcon />} />
           <IconButton aria-label="Ulubione" icon={<HeartIcon />} />
