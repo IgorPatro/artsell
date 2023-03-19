@@ -1,4 +1,4 @@
-import { Auction, fetchAuctions } from "@artsell/network"
+import { Auction, fetchAuctions, useAuctionsQuery } from "@artsell/network"
 import { AuctionCard, Breadcrumb } from "@artsell/ui"
 
 interface Props {
@@ -6,13 +6,16 @@ interface Props {
 }
 
 const IndexPage = ({ data }: Props) => {
+  const auctionsQuery = useAuctionsQuery(data)
+
   return (
     <>
       <Breadcrumb data={[]} />
       <div className="flex gap-4 flex-wrap">
-        {data.map((auction) => (
-          <AuctionCard data={auction} key={auction.id} />
-        ))}
+        {auctionsQuery.data &&
+          auctionsQuery.data.map((auction) => (
+            <AuctionCard data={auction} key={auction.id} />
+          ))}
       </div>
     </>
   )

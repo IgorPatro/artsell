@@ -8,5 +8,10 @@ export const fetchAuctions = async () => {
   return await network.get<Auction[]>("/auctions")
 }
 
-export const useAuctionsQuery = () =>
-  useQuery({ queryKey: ["auctions"], queryFn: () => fetchAuctions() })
+export const useAuctionsQuery = (initialData?: Auction[]) =>
+  useQuery({
+    queryKey: ["auctions"],
+    queryFn: () => fetchAuctions(),
+    initialData,
+    refetchInterval: 30 * 1000,
+  })
