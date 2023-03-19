@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 import { getServerSession } from "@artsell/hooks"
 import { sessionCookieName } from "@artsell/constants"
 import { setCookie } from "nookies"
-import { Button } from "@artsell/ui"
 import {
   LoginSchema,
   LoginRequest,
@@ -61,7 +60,7 @@ const LoginPage = () => {
         {...register("password")}
       />
       {errors?.password?.message}
-      <Button type="submit">Zaloguj się</Button>
+      <button type="submit">Zaloguj się</button>
     </form>
   )
 }
