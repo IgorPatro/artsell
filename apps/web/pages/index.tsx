@@ -34,7 +34,7 @@ const IndexPage = ({ data }: Props) => {
             <Avatar
               name="Dan Abrahmov"
               src="https://bit.ly/dan-abramov"
-              className="w-36"
+              size="2xl"
             />
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non libero
             velit sunt quia eos neque vero soluta, quas possimus fugiat
