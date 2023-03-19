@@ -13,7 +13,7 @@ export const MobileNavigation = ({ isOpen, handleCloseMenu }: Props) => {
     <nav
       className={`fixed top-0 left-0 w-full h-full bg-white p-4 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } transition-transform duration-300 flex flex-col items-center lg:hidden`}
+      } transition-transform duration-300 flex flex-col items-center lg:hidden z-50`}
     >
       <IconButton
         aria-label="Close menu"

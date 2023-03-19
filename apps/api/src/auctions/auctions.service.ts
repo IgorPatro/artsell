@@ -18,4 +18,8 @@ export class AuctionsService {
 
     return auction
   }
+
+  async findAll() {
+    return this.prisma.auction.findMany()
+  }
 }

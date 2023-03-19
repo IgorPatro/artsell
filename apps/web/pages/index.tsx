@@ -1,27 +1,27 @@
-import { Product, fetchProducts } from "@artsell/network"
-import Link from "next/link"
+import { Auction, fetchAuctions } from "@artsell/network"
+import { AuctionCard, Breadcrumb } from "@artsell/ui"
 
 interface Props {
-  data: Product[]
+  data: Auction[]
 }
 
 const IndexPage = ({ data }: Props) => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Index Page</h1>
-      {data.map((product) => (
-        <div key={product.id}>
-          <Link href={`/product/${product.slug}`}>{product.name}</Link>
-        </div>
-      ))}
-    </>
+    <div className="px-64 py-16">
+      <Breadcrumb data={[]} />
+      <div className="flex gap-4">
+        {data.map((auction) => (
+          <AuctionCard data={auction} key={auction.id} />
+        ))}
+      </div>
+    </div>
   )
 }
 
 export default IndexPage
 
 export const getServerSideProps = async () => {
-  const data = await fetchProducts()
+  const data = await fetchAuctions()
 
   return {
     props: {

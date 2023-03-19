@@ -11,4 +11,10 @@ export class AuctionsController {
   public async findOne(@Param("slugOrId") slugOrId: string) {
     return this.auctionsService.findOne(slugOrId)
   }
+
+  @Public()
+  @Get()
+  public async findAll() {
+    return this.auctionsService.findAll()
+  }
 }
