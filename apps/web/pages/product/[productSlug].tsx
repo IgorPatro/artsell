@@ -1,5 +1,4 @@
 import React from "react"
-import network, { Product } from "@artsell/network"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
 import { Button } from "@artsell/ui"

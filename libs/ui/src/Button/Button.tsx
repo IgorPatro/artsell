@@ -1,28 +1,30 @@
 import React from "react"
-import styled from "styled-components"
-
-const Styled = styled.button`
-  background-color: #222;
-  color: white;
-  font-size: 2rem;
-  padding: 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.1s ease-in-out;
-
-  &:hover {
-    background-color: black;
-  }
-`
+import cover from "../assets/cover.png"
+import Image from "next/image"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  onClick?: () => void
 }
 
-export const Button = ({ children, onClick }: Props) => {
-  return <Styled onClick={onClick}>{children}</Styled>
+export const Button = ({ children, ...rest }: Props) => {
+  return (
+    <>
+      <img src={cover.src} alt="Cover" />
+      <Image src={cover} alt="COVEERRR" />
+      <div
+        style={{
+          backgroundImage: `url('${cover.src}')`,
+          width: 300,
+          height: 300,
+          backgroundSize: "contain",
+        }}
+      ></div>
+      <button
+        className="text-base font-bold text-white uppercase rounded-full px-12 py-3 bg-primary-400 hover:bg-primary-500 transition-colors"
+        {...rest}
+      >
+        {children}
+      </button>
+    </>
+  )
 }
-
-export default Button
