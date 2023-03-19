@@ -14,7 +14,7 @@ interface Props {
 
 export const Breadcrumb = ({ data }: Props) => {
   return (
-    <div className="flex gap-1 mb-4">
+    <div className="flex gap-1 mb-2">
       <BreadcrumbItem label="Home" href="/" isHome />
       {data.map((item) => {
         return <BreadcrumbItem label={item.label} href={item.href} />

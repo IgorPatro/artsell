@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ChakraProvider } from "@chakra-ui/react"
 import { extendTheme } from "@chakra-ui/react"
-import { MainTemplate } from "@artsell/ui"
+import { MainTemplate, PageTemplate } from "@artsell/ui"
 import "../src/tailwind.css"
 
 const poppins = Poppins({
@@ -34,7 +34,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ChakraProvider theme={theme}>
         <main className={`main ${poppins.className}`}>
           <MainTemplate>
-            <Component {...pageProps} />
+            <PageTemplate>
+              <Component {...pageProps} />
+            </PageTemplate>
           </MainTemplate>
         </main>
       </ChakraProvider>

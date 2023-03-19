@@ -7,14 +7,14 @@ interface Props {
 
 const IndexPage = ({ data }: Props) => {
   return (
-    <div className="px-64 py-16">
+    <>
       <Breadcrumb data={[]} />
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         {data.map((auction) => (
           <AuctionCard data={auction} key={auction.id} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

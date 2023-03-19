@@ -9,6 +9,7 @@ import { sessionCookieName } from "@artsell/constants"
 import { AuctionStatus } from "@prisma/client"
 import { Auction } from "@prisma/client"
 import { GetServerSideProps } from "next"
+import { Breadcrumb } from "@artsell/ui"
 
 interface Props {
   auctionSlug: string
@@ -46,20 +47,34 @@ const AuctionPage = ({ data, auctionSlug }: Props) => {
   }
 
   return (
-    <div>
-      <h1>{data.name}</h1>
-      <h2>Current price: {currentPrice} zł</h2>
-      <h2>Status: {status}</h2>
-      <h3>Buy now price: {data.buyNowPrice} zł</h3>
-      <Bidder onBid={bid} />
-      <Image src={data.image} alt={data.name} width={400} height={400} />
-      <p>{data.description}</p>
-      <p>Created at: {new Date(data.createdAt).toDateString()}</p>
-      <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
-      <p>{data.endedAt?.toString()}</p>
-      <br />
-      <ReactMarkdown>{data.content}</ReactMarkdown>
-    </div>
+    <>
+      <Breadcrumb
+        data={[
+          {
+            label: "Aukcje",
+            href: "/auction",
+          },
+          {
+            label: data.name,
+            href: `/auction/${auctionSlug}`,
+          },
+        ]}
+      />
+      <div className="w-full">
+        <h1>{data.name}</h1>
+        <h2>Current price: {currentPrice} zł</h2>
+        <h2>Status: {status}</h2>
+        <h3>Buy now price: {data.buyNowPrice} zł</h3>
+        <Bidder onBid={bid} />
+        <Image src={data.image} alt={data.name} width={400} height={400} />
+        <p>{data.description}</p>
+        <p>Created at: {new Date(data.createdAt).toDateString()}</p>
+        <p>Updated at at: {new Date(data.updatedAt).toDateString()}</p>
+        <p>{data.endedAt?.toString()}</p>
+        <br />
+        <ReactMarkdown>{data.content}</ReactMarkdown>
+      </div>
+    </>
   )
 }
 

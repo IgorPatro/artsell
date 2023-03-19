@@ -15,6 +15,7 @@ const Bidder = ({ onBid }: Props) => {
         onChange={(e) => setValue(e.target.value)}
         placeholder="Nowa cena..."
       />
+      <button onClick={() => onBid(Number(value))}>Złóż ofertę</button>
     </div>
   )
 }

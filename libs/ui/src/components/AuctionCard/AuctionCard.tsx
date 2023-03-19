@@ -12,13 +12,15 @@ interface Props {
 }
 
 export const AuctionCard = ({ data }: Props) => {
+  const [isLiked, setIsLiked] = React.useState(false)
+
   return (
-    <div className="min-w-xs max-w-xs w-full bg-white shadow-lg rounded-xl overflow-hidden relative">
+    <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden relative">
       <button
-        className="absolute top-2 right-2 z-10"
-        onClick={() => console.log("LIKE")}
+        className="absolute top-2 right-2 z-10 w-8 h-8"
+        onClick={() => setIsLiked((prev) => !prev)}
       >
-        <HeartIcon />
+        <HeartIcon fill={isLiked ? "#D0974F" : "none"} />
       </button>
       <Link href={`/auction/${data.slug}`}>
         <div className="w-full h-64 relative">
