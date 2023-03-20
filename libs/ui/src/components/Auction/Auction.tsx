@@ -9,12 +9,8 @@ interface Props {
 
 export const Auction = ({ data }: Props) => {
   return (
-    <div className="flex gap-4 w-full">
-      <AuctionDescription
-        image={data.image}
-        name={data.name}
-        content={data.content}
-      />
+    <div className="flex gap-4 w-full items-start">
+      <AuctionDescription data={data} />
       <AuctionData data={data} />
     </div>
   )

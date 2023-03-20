@@ -20,6 +20,17 @@ export class AuctionsService {
   }
 
   async findAll() {
-    return this.prisma.auction.findMany()
+    return await this.prisma.auction.findMany()
+  }
+
+  async updateOne(slugOrId: string, body: any) {
+    return await this.prisma.auction.update({
+      where: {
+        slug: slugOrId,
+      },
+      data: {
+        content: body.content,
+      },
+    })
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common"
+import { Body, Controller, Get, Param, Put } from "@nestjs/common"
 import { Public } from "../decorators/public.decorator"
 import { AuctionsService } from "./auctions.service"
 
@@ -16,5 +16,14 @@ export class AuctionsController {
   @Get()
   public async findAll() {
     return this.auctionsService.findAll()
+  }
+
+  @Public()
+  @Put(":slugOrId")
+  public async updateOne(
+    @Param("slugOrId") slugOrId: string,
+    @Body() body: any,
+  ) {
+    return this.auctionsService.updateOne(slugOrId, body)
   }
 }

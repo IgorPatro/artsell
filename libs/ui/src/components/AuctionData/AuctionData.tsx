@@ -33,6 +33,7 @@ export const AuctionData = ({ data }: Props) => {
         status: "success",
         duration: 5000,
         isClosable: true,
+        position: "bottom-right",
       })
     })
     socket.on("bid-fail", (data) => {
@@ -42,6 +43,7 @@ export const AuctionData = ({ data }: Props) => {
         status: "error",
         duration: 5000,
         isClosable: true,
+        position: "bottom-right",
       })
     })
 
@@ -52,6 +54,7 @@ export const AuctionData = ({ data }: Props) => {
         status: "info",
         duration: 5000,
         isClosable: true,
+        position: "bottom-right",
       })
     })
 
@@ -84,15 +87,15 @@ export const AuctionData = ({ data }: Props) => {
       <div className="text-light-text mt-2">
         <p className="flex gap-1 items-center">
           <StopwatchIcon className="w-5 h-5" />
-          Rzeszów, Podkarpacie
+          {data.expiresAt.toLocaleString()}
         </p>
         <p className="flex gap-1 items-center">
           <LocationIcon className="w-5 h-5" />
-          12:03 do końca
+          Rzeszów, Podkarpacie
         </p>
         <p className="flex gap-1 items-center">
           <UserIcon className="w-5 h-5" />
-          10 osób licytuje
+          John Walker
         </p>
       </div>
       <div className="flex mt-4 max-w-[200px]">
