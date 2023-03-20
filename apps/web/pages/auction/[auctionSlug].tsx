@@ -22,9 +22,7 @@ const AuctionPage = ({ data }: Props) => {
           },
         ]}
       />
-      <div className="w-full">
-        <Auction data={data} />
-      </div>
+      <Auction data={data} />
     </>
   )
 }

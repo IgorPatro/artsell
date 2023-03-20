@@ -93,4 +93,22 @@ export class AuctionsService {
       user: safeUserData(bid.user),
     }))
   }
+
+  async getAuctionsWon(userId: string) {
+    const auctionsWon = await this.prisma.auction.findMany({
+      where: {
+        winnerId: userId,
+      },
+      include: {
+        owner: true,
+        location: true,
+      },
+    })
+
+    return auctionsWon.map((auction) => ({
+      ...auction,
+      owner: safeUserData(auction.owner),
+      location: safeLocationData(auction.location),
+    }))
+  }
 }

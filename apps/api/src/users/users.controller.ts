@@ -1,6 +1,7 @@
 import { Controller, Get, Req } from "@nestjs/common"
 import { UsersService } from "./users.service"
 import { CartsService } from "../carts/carts.service"
+import { AuctionsService } from "../auctions/auctions.service"
 import { Request } from "express"
 import { User } from "@artsell/database"
 
@@ -9,6 +10,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly cartsService: CartsService,
+    private readonly auctionsService: AuctionsService,
   ) {}
 
   @Get("/session")
@@ -32,5 +34,12 @@ export class UsersController {
     const { user } = req
 
     return this.cartsService.findUserCart((user as User).id)
+  }
+
+  @Get("/me/auctions/won")
+  public async myAuctions(@Req() req: Request) {
+    const { user } = req
+
+    return this.auctionsService.getAuctionsWon((user as User).id)
   }
 }
