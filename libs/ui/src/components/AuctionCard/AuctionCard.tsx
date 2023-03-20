@@ -40,17 +40,21 @@ export const AuctionCard = ({ data }: Props) => {
           </div>
           <h3 className="text-dark-text text-lg">{data.name}</h3>
           <div className="text-light-text mt-2">
-            <p className="flex gap-1 items-center">
-              <LocationIcon className="w-5 h-5" />
-              Rzeszów, Podkarpacie
-            </p>
+            {data.location && (
+              <p className="flex gap-1 items-center">
+                <LocationIcon className="w-5 h-5" />
+                {data.location?.city}, {data.location?.state}
+              </p>
+            )}
             <p className="flex gap-1 items-center">
               <StopwatchIcon className="w-5 h-5" />
               12:03 do końca
             </p>
             <p className="flex gap-1 items-center">
               <AuctionIcon className="w-5 h-5" />
-              10 osób licytuje
+              {data.bidders
+                ? `${data.bidders} osób licytuje`
+                : "Licytuj jako pierwszy!"}
             </p>
           </div>
         </div>

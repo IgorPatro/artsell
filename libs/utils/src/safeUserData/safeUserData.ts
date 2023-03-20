@@ -10,3 +10,5 @@ export const safeUserData = (user: User) => {
     lastName,
   }
 }
+
+export type SafeUserData = ReturnType<typeof safeUserData>

@@ -6,13 +6,15 @@ interface Props {
 }
 
 const IndexPage = ({ data }: Props) => {
-  const auctionsQuery = useAuctionsQuery(data)
+  const auctionsQuery = useAuctionsQuery({
+    initialData: data,
+  })
 
   return (
     <>
       <Breadcrumb data={[]} />
       <div className="flex gap-4 flex-wrap">
-        {auctionsQuery.data &&
+        {auctionsQuery.isSuccess &&
           auctionsQuery.data.map((auction) => (
             <AuctionCard data={auction} key={auction.id} />
           ))}

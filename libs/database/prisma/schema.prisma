@@ -127,8 +127,8 @@ model Location {
   unitNumber     String?
   zipCode        String
   city           String
-  state          String
-  country        String
+  state          String?
+  country        String    @default("Polska")
   Auction        Auction[]
   User           User[]
 }

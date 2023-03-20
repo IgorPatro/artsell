@@ -1,6 +1,5 @@
 import React from "react"
-import network from "@artsell/network"
-import { Auction as AuctionDataProps } from "@artsell/network"
+import { Auction as AuctionDataProps, fetchAuction } from "@artsell/network"
 import { GetServerSideProps } from "next"
 import { Breadcrumb, Auction } from "@artsell/ui"
 
@@ -34,7 +33,7 @@ export default AuctionPage
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { auctionSlug } = ctx.query
-  const data = await network.get(`/auctions/${auctionSlug}`)
+  const data = await fetchAuction(auctionSlug as string)
 
   return {
     props: {
