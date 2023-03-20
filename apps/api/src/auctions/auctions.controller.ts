@@ -26,4 +26,10 @@ export class AuctionsController {
   ) {
     return this.auctionsService.updateOne(slugOrId, body)
   }
+
+  @Public()
+  @Get(":auctionId/bids")
+  public async getBids(@Param("auctionId") auctionId: string) {
+    return this.auctionsService.getBids(auctionId)
+  }
 }

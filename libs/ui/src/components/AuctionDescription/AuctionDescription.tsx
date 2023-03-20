@@ -53,19 +53,21 @@ export const AuctionDescription = ({ data }: Props) => {
           <h2 className="text-xl text-dark-text mb-2">Sprzedaje</h2>
           <p className="flex gap-1 items-center">
             <UserIcon className="w-5 h-5" />
-            Mikołaj Rej
+            {data.owner.firstName} {data.owner.lastName}
           </p>
           <p className="flex gap-1 items-center">
             <LocationIcon className="w-5 h-5" />
             Rzeszów, Podkarpacie
           </p>
-          <p className="flex gap-1 items-center">
-            <PhoneIcon className="w-5 h-5" />
-            +48 785 375 312
-          </p>
+          {data.owner.phone && (
+            <p className="flex gap-1 items-center">
+              <PhoneIcon className="w-5 h-5" />
+              {data.owner.phone}
+            </p>
+          )}
           <p className="flex gap-1 items-center">
             <EmailIcon className="w-5 h-5" />
-            m*********@***.pl
+            {data.owner.email}
           </p>
         </div>
         <div className="text-light-text mt-2 flex flex-col gap-1">

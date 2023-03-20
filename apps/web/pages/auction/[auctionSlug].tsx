@@ -1,6 +1,6 @@
 import React from "react"
 import network from "@artsell/network"
-import { Auction as AuctionDataProps } from "@prisma/client"
+import { Auction as AuctionDataProps } from "@artsell/network"
 import { GetServerSideProps } from "next"
 import { Breadcrumb, Auction } from "@artsell/ui"
 

@@ -1,6 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common"
 import { PrismaService } from "../prisma.service"
 import { messages } from "@artsell/network"
+import { safeUserData } from "@artsell/utils"
 
 @Injectable()
 export class AuctionsService {
@@ -11,12 +12,18 @@ export class AuctionsService {
       where: {
         OR: [{ id: slugOrId }, { slug: slugOrId }],
       },
+      include: {
+        owner: true,
+      },
     })
 
     if (!auction)
       throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND)
 
-    return auction
+    return {
+      ...auction,
+      owner: safeUserData(auction.owner),
+    }
   }
 
   async findAll() {
@@ -32,5 +39,26 @@ export class AuctionsService {
         content: body.content,
       },
     })
+  }
+
+  async getBids(auctionId: string) {
+    const bids = await this.prisma.bidHistory.findMany({
+      where: {
+        auctionId,
+      },
+      include: {
+        user: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    })
+
+    if (!bids) throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND)
+
+    return bids.map((bid) => ({
+      ...bid,
+      user: safeUserData(bid.user),
+    }))
   }
 }

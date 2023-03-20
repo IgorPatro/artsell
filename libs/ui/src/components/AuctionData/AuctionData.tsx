@@ -8,6 +8,7 @@ import { useSocket } from "@artsell/hooks"
 import { parseCookies } from "nookies"
 import { sessionCookieName } from "@artsell/constants"
 import { useToast } from "@chakra-ui/react"
+import { AuctionBids } from "../AuctionBids/AuctionBids"
 
 interface Props {
   data: Auction
@@ -137,18 +138,7 @@ export const AuctionData = ({ data }: Props) => {
       <div className="mt-4">
         <h4 className="text-lg text-dark-text">Historia licytacji</h4>
         <div className="text-base text-light-text">
-          <p>
-            Ty, 430 zł <span className="text-slate-300">(15:43)</span>
-          </p>
-          <p>
-            Jan, 420 zł <span className="text-slate-300">(14:03)</span>
-          </p>
-          <p>
-            Tomasz, 415 zł <span className="text-slate-300">(13:46)</span>
-          </p>
-          <p>
-            Joanna, 390 zł <span className="text-slate-300">(13:33)</span>
-          </p>
+          <AuctionBids auctionId={data.id} />
         </div>
       </div>
     </div>
