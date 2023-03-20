@@ -9,6 +9,7 @@ import { parseCookies } from "nookies"
 import { sessionCookieName } from "@artsell/constants"
 import { useToast } from "@chakra-ui/react"
 import { AuctionBids } from "../AuctionBids/AuctionBids"
+import { useQueryClient } from "@tanstack/react-query"
 
 interface Props {
   data: Auction
@@ -18,8 +19,14 @@ export const AuctionData = ({ data }: Props) => {
   const { [sessionCookieName]: session } = parseCookies()
   const socket = useSocket(data.slug)
   const [bid, setBid] = React.useState(data.currentPrice)
-  const [currentPrice, setCurrentPrice] = React.useState<number>()
+  const [currentPrice, setCurrentPrice] = React.useState<number>(
+    data.currentPrice,
+  )
   const toast = useToast()
+
+  const queryClient = useQueryClient()
+
+  queryClient.invalidateQueries({ queryKey: [`auctions/${data.id}/bids`] })
 
   React.useEffect(() => {
     socket.on("connect", () => console.log("Connected", socket.id))
@@ -63,6 +70,13 @@ export const AuctionData = ({ data }: Props) => {
 
     return () => {
       socket.disconnect()
+      socket.off("connect")
+      socket.off("disconnect")
+      socket.off("hello")
+      socket.off("bid-success")
+      socket.off("bid-fail")
+      socket.off("auction-finished")
+      socket.off("auction-winner")
     }
   }, [socket, toast])
 
@@ -88,15 +102,17 @@ export const AuctionData = ({ data }: Props) => {
       <div className="text-light-text mt-2">
         <p className="flex gap-1 items-center">
           <StopwatchIcon className="w-5 h-5" />
-          {data.expiresAt.toLocaleString()}
+          12:35
         </p>
-        <p className="flex gap-1 items-center">
-          <LocationIcon className="w-5 h-5" />
-          Rzeszów, Podkarpacie
-        </p>
+        {data.location && (
+          <p className="flex gap-1 items-center">
+            <LocationIcon className="w-5 h-5" />
+            {data.location?.city}, {data.location?.state}
+          </p>
+        )}
         <p className="flex gap-1 items-center">
           <UserIcon className="w-5 h-5" />
-          John Walker
+          {data.owner.firstName} {data.owner.lastName}
         </p>
       </div>
       <div className="flex mt-4 max-w-[200px]">
@@ -127,7 +143,7 @@ export const AuctionData = ({ data }: Props) => {
         LICYTUJ
       </button>
       <div className="mt-4">
-        <h4 className="text-lg text-dark-text">Dostawa</h4>
+        <h4 className="text-lg text-dark-text mb-2">Dostawa</h4>
         <div className="text-base text-light-text">
           <p>Paczkomaty InPost - 10,99 zł</p>
           <p>Kurier InPost - 14,99 zł</p>
@@ -136,7 +152,7 @@ export const AuctionData = ({ data }: Props) => {
         </div>
       </div>
       <div className="mt-4">
-        <h4 className="text-lg text-dark-text">Historia licytacji</h4>
+        <h4 className="text-lg text-dark-text mb-2">Historia licytacji</h4>
         <div className="text-base text-light-text">
           <AuctionBids auctionId={data.id} />
         </div>

@@ -23,8 +23,10 @@ export const AuctionBids = ({ auctionId }: Props) => {
     <div className="flex flex-col gap-1">
       {bidsHistoryQuery.data?.map((bid) => (
         <p key={bid.id}>
-          {bid.user.firstName}, {bid.price}{" "}
-          <span className="text-slate-300">{`(${bid.createdAt.toLocaleString()})`}</span>
+          {bid.user.firstName}, {`${bid.price} zł`}{" "}
+          <span className="text-slate-300">{`(${new Date(bid.createdAt)
+            .toTimeString()
+            .substring(0, 8)})`}</span>
         </p>
       ))}
     </div>

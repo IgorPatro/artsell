@@ -46,7 +46,7 @@ export class AuctionsService {
       },
     })
 
-    const countDifferentBidders = (history: BidHistory[]) => {
+    const countBidders = (history: BidHistory[]) => {
       return history.reduce((acc: string[], bid: BidHistory) => {
         if (acc.includes(bid.userId)) return acc
         return [...acc, bid.userId]
@@ -57,7 +57,7 @@ export class AuctionsService {
       ...auction,
       owner: safeUserData(auction.owner),
       location: safeLocationData(auction.location),
-      bidders: countDifferentBidders(auction.BidHistory).length,
+      bidders: countBidders(auction.BidHistory).length,
     }))
   }
 
@@ -83,6 +83,7 @@ export class AuctionsService {
       orderBy: {
         createdAt: "desc",
       },
+      take: 7,
     })
 
     if (!bids) throw new HttpException(messages.NOT_FOUND, HttpStatus.NOT_FOUND)
