@@ -3,6 +3,7 @@ export * from "./users/users"
 export * from "./messages/messages"
 export * from "./products/products"
 export * from "./carts/carts"
+export * from "./auctions/auctions"
 import { parseCookies } from "nookies"
 import { sessionCookieName } from "@artsell/constants"
 

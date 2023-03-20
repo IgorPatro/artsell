@@ -8,7 +8,6 @@ import network, {
   useCartQuery,
 } from "@artsell/network"
 import Image from "next/image"
-import { Button } from "@artsell/ui"
 import { useCartId } from "@artsell/hooks"
 
 const CartPage = () => {
@@ -66,14 +65,14 @@ const CartPage = () => {
                       })
                     }
                   />
-                  <Button
+                  <button
                     disabled={cartQuery.isLoading}
                     onClick={() =>
                       deleteMutation.mutate({ productId: item.productId })
                     }
                   >
                     Remove
-                  </Button>
+                  </button>
                 </h4>
               </div>
             ))

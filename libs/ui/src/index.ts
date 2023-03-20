@@ -1,2 +1,3 @@
-export * from "./Button/Button"
-export * from "./Search/Search"
+export * from "./common"
+export * from "./template"
+export * from "./components"

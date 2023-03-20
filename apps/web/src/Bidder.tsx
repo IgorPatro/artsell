@@ -1,5 +1,4 @@
 import React from "react"
-import { Button } from "@artsell/ui"
 
 interface Props {
   onBid: (newPrice: number) => void
@@ -16,7 +15,7 @@ const Bidder = ({ onBid }: Props) => {
         onChange={(e) => setValue(e.target.value)}
         placeholder="Nowa cena..."
       />
-      <Button onClick={() => onBid(Number(value))}>Place a BID</Button>
+      <button onClick={() => onBid(Number(value))}>Złóż ofertę</button>
     </div>
   )
 }

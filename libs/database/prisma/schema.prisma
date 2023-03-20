@@ -12,6 +12,7 @@ model User {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now()) @updatedAt
   email       String       @unique
+  phone       String?
   password    String
   firstName   String
   lastName    String
@@ -20,6 +21,8 @@ model User {
   WonAuctions Auction[]    @relation("WonAuctions")
   products    Product[]
   cart        Cart?
+  location    Location?    @relation(fields: [locationId], references: [id])
+  locationId  String?
 }
 
 model Product {
@@ -100,6 +103,8 @@ model Auction {
   status        AuctionStatus @default(PENDING)
   winner        User?         @relation("WonAuctions", fields: [winnerId], references: [id])
   winnerId      String?
+  location      Location?     @relation(fields: [locationId], references: [id])
+  locationId    String?
 }
 
 model BidHistory {
@@ -111,4 +116,19 @@ model BidHistory {
   auctionId String
   price     Float
   socketId  String? // socket id of the user who placed the bid to send him success message
+}
+
+model Location {
+  id             String    @id @default(uuid())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+  street         String
+  buildingNumber String
+  unitNumber     String?
+  zipCode        String
+  city           String
+  state          String?
+  country        String    @default("Polska")
+  Auction        Auction[]
+  User           User[]
 }
