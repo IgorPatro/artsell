@@ -23,6 +23,7 @@ model User {
   cart        Cart?
   location    Location?    @relation(fields: [locationId], references: [id])
   locationId  String?
+  avatar      String?
 }
 
 model Product {

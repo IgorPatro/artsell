@@ -1,8 +1,10 @@
 import React from "react"
+import { GetServerSideProps } from "next"
 import { Breadcrumb } from "@artsell/ui"
 import { useMyWonAuctionsQuery } from "@artsell/network"
 import { Skeleton } from "@chakra-ui/react"
 import { AuctionCard } from "@artsell/ui"
+import { getServerSession } from "@artsell/hooks"
 
 const WonAuctionsPage = () => {
   const myWonAuctionsQuery = useMyWonAuctionsQuery()
@@ -45,3 +47,20 @@ const WonAuctionsPage = () => {
 }
 
 export default WonAuctionsPage
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerSession(ctx)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}

@@ -4,3 +4,6 @@ export * from "./Auction/Auction"
 export * from "./Auction/AuctionDescription/AuctionDescription"
 
 export * from "./Auth/LoginForm"
+export * from "./Auth/RegisterForm"
+
+export * from "./Account/Account"

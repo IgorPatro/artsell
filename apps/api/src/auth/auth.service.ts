@@ -21,7 +21,11 @@ export class AuthService {
       throw new HttpException(messages.USER_ALREADY_EXISTS, HttpStatus.CONFLICT)
     }
 
-    const { repPassword: __repPassword, ...rest } = user
+    const {
+      repPassword: __repPassword,
+      isTermsAccepted: __isTermsAccepted,
+      ...rest
+    } = user
 
     const createdUser = await this.prisma.user.create({
       data: {
