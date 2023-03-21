@@ -88,7 +88,7 @@ export const AuctionData = ({ data }: Props) => {
   }
 
   return (
-    <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden relative p-4">
+    <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden p-4 sticky top-10">
       <button className="absolute top-3 right-3 z-10 w-8 h-8">
         <HeartIcon fill="#D0974F" />
       </button>

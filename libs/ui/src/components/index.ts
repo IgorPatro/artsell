@@ -7,3 +7,5 @@ export * from "./Auth/LoginForm"
 export * from "./Auth/RegisterForm"
 
 export * from "./Account/Account"
+
+export * from "./WonAuctions/WonAuctions"

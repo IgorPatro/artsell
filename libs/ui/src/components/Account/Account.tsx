@@ -15,7 +15,7 @@ export const Account = () => {
 
   const handleLogout = () => {
     destroyCookie(null, sessionCookieName)
-    router.push("/")
+    router.reload()
     queryClient.invalidateQueries({ queryKey: ["me"] })
   }
 

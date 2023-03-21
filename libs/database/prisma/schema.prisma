@@ -81,6 +81,9 @@ enum AuctionStatus {
   COMPLETED
   PAUSED
   DELETED
+  PAID
+  DELIVERY
+  DELIVERED
 }
 
 model Auction {
@@ -106,6 +109,7 @@ model Auction {
   winnerId      String?
   location      Location?     @relation(fields: [locationId], references: [id])
   locationId    String?
+  media         String[]
 }
 
 model BidHistory {
