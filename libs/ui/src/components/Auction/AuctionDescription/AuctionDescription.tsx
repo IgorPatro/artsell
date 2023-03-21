@@ -1,10 +1,10 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import Image from "next/image"
-import { ReactComponent as LocationIcon } from "../../assets/icons/location.svg"
-import { ReactComponent as PhoneIcon } from "../../assets/icons/phone.svg"
-import { ReactComponent as UserIcon } from "../../assets/icons/user.svg"
-import { ReactComponent as EmailIcon } from "../../assets/icons/email.svg"
+import { ReactComponent as LocationIcon } from "../../../assets/icons/location.svg"
+import { ReactComponent as PhoneIcon } from "../../../assets/icons/phone.svg"
+import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg"
+import { ReactComponent as EmailIcon } from "../../../assets/icons/email.svg"
 import { Auction } from "@artsell/network"
 
 interface Props {

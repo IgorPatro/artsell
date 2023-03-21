@@ -1,5 +1,5 @@
 import React from "react"
-import { IconButton } from "@chakra-ui/react"
+import { IconButton, Button } from "@chakra-ui/react"
 import { Search } from "../../common/Search/Search"
 import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg"
 import { ReactComponent as AuctionIcon } from "../../assets/icons/auction.svg"
@@ -18,18 +18,31 @@ export const NavigationContent = () => {
       <div className="flex gap-2 flex-col items-center lg:flex-row lg:gap-4">
         <div className="flex gap-1">
           <Link href={meQuery.isSuccess ? "/won" : "/login"}>
-            <IconButton aria-label="Aukcje" icon={<AuctionIcon />} />
+            <IconButton
+              bg="transparent"
+              _hover={{ bg: "transparent" }}
+              aria-label="Aukcje"
+              icon={<AuctionIcon />}
+            />
           </Link>
           <Link href="/favourites">
-            <IconButton aria-label="Ulubione" icon={<HeartIcon />} />
+            <IconButton
+              bg="transparent"
+              _hover={{ bg: "transparent" }}
+              aria-label="Ulubione"
+              icon={<HeartIcon fill="transparent" stroke="#A9ADAC" />}
+            />
           </Link>
           <Link href={meQuery.isSuccess ? "/account" : "/login"}>
-            <IconButton aria-label="Konto" icon={<UserIcon />} />
+            <IconButton
+              bg="transparent"
+              _hover={{ bg: "transparent" }}
+              aria-label="Konto"
+              icon={<UserIcon />}
+            />
           </Link>
         </div>
-        <button className="bg-primary rounded-3xl text-white font-bold py-2 px-10">
-          WYSTAW
-        </button>
+        <Button px="10">WYSTAW</Button>
       </div>
     </>
   )

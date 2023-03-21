@@ -2,10 +2,10 @@ import React from "react"
 import { Auction } from "@artsell/network"
 import Image from "next/image"
 import Link from "next/link"
-import { ReactComponent as LocationIcon } from "../../assets/icons/location.svg"
-import { ReactComponent as StopwatchIcon } from "../../assets/icons/stopwatch.svg"
-import { ReactComponent as AuctionIcon } from "../../assets/icons/auction.svg"
-import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg"
+import { ReactComponent as LocationIcon } from "../../../assets/icons/location.svg"
+import { ReactComponent as StopwatchIcon } from "../../../assets/icons/stopwatch.svg"
+import { ReactComponent as AuctionIcon } from "../../../assets/icons/auction.svg"
+import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg"
 
 interface Props {
   data: Auction
