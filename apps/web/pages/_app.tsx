@@ -26,6 +26,23 @@ const theme = extendTheme({
     heading: `'Poppins', sans-serif`,
     body: `'Poppins', sans-serif`,
   },
+  components: {
+    Button: {
+      baseStyle: {
+        textTransform: "uppercase",
+        borderRadius: "100rem",
+      },
+      defaultProps: {
+        size: "md",
+        colorScheme: "yellow",
+      },
+      variants: {
+        solid: {
+          color: "white",
+        },
+      },
+    },
+  },
 })
 
 const App = ({ Component, pageProps }: AppProps) => {

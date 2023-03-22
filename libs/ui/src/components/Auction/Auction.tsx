@@ -1,7 +1,7 @@
 import React from "react"
 import { Auction as AuctionDataProps } from "@artsell/network"
-import { AuctionDescription } from "../AuctionDescription/AuctionDescription"
-import { AuctionData } from "../AuctionData/AuctionData"
+import { AuctionDescription } from "./AuctionDescription/AuctionDescription"
+import { AuctionData } from "./AuctionData/AuctionData"
 
 interface Props {
   data: AuctionDataProps

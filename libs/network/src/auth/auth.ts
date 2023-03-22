@@ -16,6 +16,7 @@ export const RegisterSchema = z
     lastName: z
       .string()
       .min(3, { message: "Nazwisko musi mieć minimum 3 znaki" }),
+    isTermsAccepted: z.literal(true),
   })
   .refine((data) => data.password === data.repPassword, {
     message: "Hasła nie są identyczne",
@@ -35,8 +36,12 @@ export const fetchRegister = async (data: RegisterRequest) => {
 
 // LOGIN
 export const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string().email({
+    message: "Email nie jest poprawny",
+  }),
+  password: z.string().min(6, {
+    message: "Hasło musi mieć minimum 6 znaków",
+  }),
 })
 
 export type LoginRequest = z.infer<typeof LoginSchema>

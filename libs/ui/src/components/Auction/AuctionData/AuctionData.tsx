@@ -1,9 +1,9 @@
 import React from "react"
 import { Auction } from "@artsell/network"
-import { ReactComponent as LocationIcon } from "../../assets/icons/location.svg"
-import { ReactComponent as StopwatchIcon } from "../../assets/icons/stopwatch.svg"
-import { ReactComponent as UserIcon } from "../../assets/icons/user.svg"
-import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg"
+import { ReactComponent as LocationIcon } from "../../../assets/icons/location.svg"
+import { ReactComponent as StopwatchIcon } from "../../../assets/icons/stopwatch.svg"
+import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg"
+import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg"
 import { useSocket } from "@artsell/hooks"
 import { parseCookies } from "nookies"
 import { sessionCookieName } from "@artsell/constants"
@@ -88,7 +88,7 @@ export const AuctionData = ({ data }: Props) => {
   }
 
   return (
-    <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden relative p-4">
+    <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden p-4 sticky top-10">
       <button className="absolute top-3 right-3 z-10 w-8 h-8">
         <HeartIcon fill="#D0974F" />
       </button>
