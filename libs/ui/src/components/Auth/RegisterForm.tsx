@@ -18,6 +18,7 @@ import {
   Text,
   Link,
   Checkbox,
+  useToast,
 } from "@chakra-ui/react"
 import NextLink from "next/link"
 
@@ -29,6 +30,7 @@ export const RegisterForm = () => {
   } = useForm<RegisterRequest>({
     resolver: zodResolver(RegisterSchema),
   })
+  const toast = useToast()
 
   const router = useRouter()
 
@@ -39,7 +41,15 @@ export const RegisterForm = () => {
   >({
     mutationFn: async (data: RegisterRequest) => fetchRegister(data),
     onSuccess: () => router.push("/login"),
-    onError: (error) => console.log(error),
+    onError: (error) =>
+      toast({
+        title: "Błąd logowania",
+        position: "bottom-right",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      }),
   })
 
   const onSubmit = handleSubmit((data) => registerMutation.mutate(data))

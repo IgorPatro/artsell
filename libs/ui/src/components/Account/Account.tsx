@@ -6,17 +6,17 @@ import { destroyCookie } from "nookies"
 import { sessionCookieName } from "@artsell/constants"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { Breadcrumb } from "@artsell/ui"
+import { Breadcrumb } from "../../common/Breadcrumb/Breadcrumb"
 
 export const Account = () => {
   const meQuery = useMeQuery()
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     destroyCookie(null, sessionCookieName)
-    router.reload()
-    queryClient.invalidateQueries({ queryKey: ["me"] })
+    await queryClient.invalidateQueries({ queryKey: ["me"] })
+    router.push("/")
   }
 
   if (meQuery.isLoading) return <div>Loading...</div>

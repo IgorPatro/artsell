@@ -18,6 +18,7 @@ import {
   Box,
   Text,
   Link,
+  useToast,
 } from "@chakra-ui/react"
 import NextLink from "next/link"
 
@@ -29,6 +30,7 @@ export const LoginForm = () => {
   } = useForm<LoginRequest>({
     resolver: zodResolver(LoginSchema),
   })
+  const toast = useToast()
 
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -37,10 +39,18 @@ export const LoginForm = () => {
     mutationFn: async (data: LoginRequest) => fetchLogin(data),
     onSuccess: ({ Authorization }) => {
       setCookie(null, sessionCookieName, Authorization)
-      router.push("/")
       queryClient.invalidateQueries({ queryKey: ["me"] })
+      router.push("/")
     },
-    onError: (error) => console.log(error.message),
+    onError: (error) =>
+      toast({
+        title: "Błąd logowania",
+        position: "bottom-right",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      }),
   })
 
   const onSubmit = handleSubmit((data) => loginMutation.mutate(data))
