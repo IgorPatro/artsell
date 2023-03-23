@@ -2,6 +2,7 @@ import React from "react"
 import { GetServerSideProps } from "next"
 import { Account } from "@artsell/ui"
 import { getServerSession } from "@artsell/hooks"
+import { pageMap } from "@artsell/constants"
 
 const AccountPage = () => {
   return <Account />
@@ -15,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: pageMap.home,
         permanent: false,
       },
     }

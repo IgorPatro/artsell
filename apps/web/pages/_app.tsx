@@ -5,7 +5,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ChakraProvider } from "@chakra-ui/react"
 import { extendTheme } from "@chakra-ui/react"
 import { MainTemplate, PageTemplate } from "@artsell/ui"
-import "../src/tailwind.css"
+// IF STYLES WON'T WORK CHECK THIS:
+import "tailwindcss/tailwind.css"
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],

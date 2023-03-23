@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next"
 import { getServerSession } from "@artsell/hooks"
 import { LoginForm } from "@artsell/ui"
 import { Center } from "@chakra-ui/react"
+import { pageMap } from "@artsell/constants"
 
 const LoginPage = () => {
   return (
@@ -19,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (session) {
     return {
       redirect: {
-        destination: "/",
+        destination: pageMap.home,
         permanent: false,
       },
     }
