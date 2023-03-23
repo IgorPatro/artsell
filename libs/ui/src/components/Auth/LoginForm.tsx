@@ -21,6 +21,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import NextLink from "next/link"
+import { pageMap } from "@artsell/constants"
 
 export const LoginForm = () => {
   const {
@@ -76,13 +77,13 @@ export const LoginForm = () => {
       </form>
       <Text color="gray.600" mt="5" mb="3">
         Nie masz konta?{" "}
-        <Link as={NextLink} href="/register" color="yellow.400">
+        <Link as={NextLink} href={pageMap.register} color="yellow.400">
           Zarejestruj się
         </Link>
       </Text>
       <Text color="gray.600" fontSize="xs">
         Logując się do Artsell akceptujesz{" "}
-        <Link as={NextLink} href="/regulamin" color="yellow.400">
+        <Link as={NextLink} href={pageMap.statute} color="yellow.400">
           Regulamin
         </Link>{" "}
         w aktualnym brzmieniu obowiązującym od dnia 21.03.2023. Informacje o

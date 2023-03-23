@@ -1,9 +1,10 @@
 import React from "react"
 import { useMyWonAuctionsQuery } from "@artsell/network"
-import { Breadcrumb } from "@artsell/ui"
+import { Breadcrumb } from "../../common/Breadcrumb/Breadcrumb"
 import Image from "next/image"
 import { Button } from "@chakra-ui/react"
 import { ReactComponent as LocationIcon } from "../../assets/icons/location.svg"
+import { pageMap } from "@artsell/constants"
 
 export const WonAuctions = () => {
   const myWonAuctionsQuery = useMyWonAuctionsQuery()
@@ -18,7 +19,7 @@ export const WonAuctions = () => {
         data={[
           {
             label: "Wygrane aukcje",
-            href: "/won",
+            href: pageMap.currentAuctions,
           },
         ]}
       />

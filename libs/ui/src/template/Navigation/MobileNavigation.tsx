@@ -8,6 +8,7 @@ import { ReactComponent as AuctionIcon } from "../../assets/icons/auction.svg"
 import { ReactComponent as UserIcon } from "../../assets/icons/user.svg"
 import Link from "next/link"
 import { Button } from "@chakra-ui/react"
+import { pageMap } from "@artsell/constants"
 
 interface Props {
   isOpen: boolean
@@ -39,7 +40,7 @@ export const MobileNavigation = ({
         </div>
         <div className="flex gap-2 flex-col items-center">
           <div className="flex gap-1">
-            <Link href={isAuthed ? "/won" : "/login"}>
+            <Link href={isAuthed ? pageMap.currentAuctions : pageMap.login}>
               <IconButton
                 bg="transparent"
                 _hover={{ bg: "transparent" }}
@@ -47,7 +48,7 @@ export const MobileNavigation = ({
                 icon={<AuctionIcon />}
               />
             </Link>
-            <Link href="/favourites">
+            <Link href={pageMap.favourites}>
               <IconButton
                 bg="transparent"
                 _hover={{ bg: "transparent" }}
@@ -55,7 +56,7 @@ export const MobileNavigation = ({
                 icon={<HeartIcon fill="transparent" stroke="#A9ADAC" />}
               />
             </Link>
-            <Link href={isAuthed ? "/account" : "/login"}>
+            <Link href={isAuthed ? pageMap.account : pageMap.login}>
               <IconButton
                 bg="transparent"
                 _hover={{ bg: "transparent" }}

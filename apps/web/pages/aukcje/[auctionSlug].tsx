@@ -2,6 +2,7 @@ import React from "react"
 import { Auction as AuctionDataProps, fetchAuction } from "@artsell/network"
 import { GetServerSideProps } from "next"
 import { Breadcrumb, Auction } from "@artsell/ui"
+import { pageMap } from "@artsell/constants"
 
 interface Props {
   data: AuctionDataProps
@@ -14,11 +15,11 @@ const AuctionPage = ({ data }: Props) => {
         data={[
           {
             label: "Aukcje",
-            href: "/auction",
+            href: pageMap.auctions,
           },
           {
             label: data.name,
-            href: `/auction/${data.slug}`,
+            href: `${pageMap.auction}${data.slug}`,
           },
         ]}
       />

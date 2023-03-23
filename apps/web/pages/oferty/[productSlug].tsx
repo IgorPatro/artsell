@@ -10,6 +10,7 @@ import network, {
 } from "@artsell/network"
 import { useCartId, saveCartId } from "@artsell/hooks"
 import { Product, Breadcrumb } from "@artsell/ui"
+import { pageMap } from "@artsell/constants"
 
 interface Props {
   data: ProductInterface
@@ -34,11 +35,11 @@ const ProductPage = ({ data }: Props) => {
         data={[
           {
             label: "Produkty",
-            href: "/product",
+            href: pageMap.products,
           },
           {
             label: data.name,
-            href: `/product/${data.slug}`,
+            href: `${pageMap.product}${data.slug}`,
           },
         ]}
       />

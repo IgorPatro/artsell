@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg"
+import { pageMap } from "@artsell/constants"
 
 interface BreadcrumbItemProps {
   label: string
@@ -15,7 +16,7 @@ interface Props {
 export const Breadcrumb = ({ data }: Props) => {
   return (
     <div className="flex gap-1 mb-2">
-      <BreadcrumbItem label="Home" href="/" isHome />
+      <BreadcrumbItem label="Home" href={pageMap.home} isHome />
       {data.map((item) => {
         return <BreadcrumbItem label={item.label} href={item.href} />
       })}

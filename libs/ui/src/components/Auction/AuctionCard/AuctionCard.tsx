@@ -6,6 +6,7 @@ import { ReactComponent as LocationIcon } from "../../../assets/icons/location.s
 import { ReactComponent as StopwatchIcon } from "../../../assets/icons/stopwatch.svg"
 import { ReactComponent as AuctionIcon } from "../../../assets/icons/auction.svg"
 import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg"
+import { pageMap } from "@artsell/constants"
 
 interface Props {
   data: Auction
@@ -22,7 +23,7 @@ export const AuctionCard = ({ data }: Props) => {
       >
         <HeartIcon fill={isLiked ? "#D0974F" : "none"} />
       </button>
-      <Link href={`/auction/${data.slug}`}>
+      <Link href={`${pageMap.auction}${data.slug}`}>
         <div className="w-full h-64 relative">
           <Image
             src={data.image}

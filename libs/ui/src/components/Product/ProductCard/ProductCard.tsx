@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ReactComponent as StopwatchIcon } from "../../../assets/icons/stopwatch.svg"
 import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg"
+import { pageMap } from "@artsell/constants"
 
 interface Props {
   data: Product
@@ -20,7 +21,7 @@ export const ProductCard = ({ data }: Props) => {
       >
         <HeartIcon fill={isLiked ? "#D0974F" : "none"} />
       </button>
-      <Link href={`/product/${data.slug}`}>
+      <Link href={`${pageMap.product}${data.slug}`}>
         <div className="w-full h-64 relative">
           <Image
             src={data.image}

@@ -9,6 +9,7 @@ import network, {
 } from "@artsell/network"
 import Image from "next/image"
 import { useCartId } from "@artsell/hooks"
+import { pageMap } from "@artsell/constants"
 
 const CartPage = () => {
   const cartId = useCartId()
@@ -31,7 +32,7 @@ const CartPage = () => {
   return (
     <div>
       <h1>Cart Page</h1>
-      <Link href="/">Home</Link>
+      <Link href={pageMap.home}>Home</Link>
       <br />
       <br />
       <br />
@@ -42,7 +43,7 @@ const CartPage = () => {
           {cartQuery.data?.items.length ? (
             cartQuery.data.items.map((item) => (
               <div key={item.id}>
-                <Link href={`/product/${item.product.slug}`}>
+                <Link href={`${pageMap.product}${item.product.slug}`}>
                   <Image
                     src={item.product.image}
                     alt={item.product.description}

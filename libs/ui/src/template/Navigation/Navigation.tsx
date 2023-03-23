@@ -8,17 +8,31 @@ import { Search } from "../../common/Search/Search"
 import { ReactComponent as HeartIcon } from "../../assets/icons/heart.svg"
 import { ReactComponent as AuctionIcon } from "../../assets/icons/auction.svg"
 import { ReactComponent as UserIcon } from "../../assets/icons/user.svg"
+import { destroyCookie } from "nookies"
+import { sessionCookieName } from "@artsell/constants"
+import { useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import Link from "next/link"
 import { Button } from "@chakra-ui/react"
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"
+import { pageMap } from "@artsell/constants"
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const router = useRouter()
+  const queryClient = useQueryClient()
 
   const handleOpenMenu = () => setIsOpen(true)
 
   const handleCloseMenu = () => setIsOpen(false)
 
   const meQuery = useMeQuery()
+
+  const handleLogout = async () => {
+    destroyCookie(null, sessionCookieName)
+    await queryClient.invalidateQueries({ queryKey: ["me"] })
+    router.push("/")
+  }
 
   return (
     <>
@@ -30,7 +44,11 @@ export const Navigation = () => {
           </div>
           <div className="flex gap-2 flex-col items-center lg:flex-row lg:gap-4">
             <div className="flex gap-1">
-              <Link href={meQuery.isSuccess ? "/won" : "/login"}>
+              <Link
+                href={
+                  meQuery.isSuccess ? pageMap.currentAuctions : pageMap.login
+                }
+              >
                 <IconButton
                   bg="transparent"
                   _hover={{ bg: "transparent" }}
@@ -38,7 +56,7 @@ export const Navigation = () => {
                   icon={<AuctionIcon />}
                 />
               </Link>
-              <Link href="/favourites">
+              <Link href={pageMap.favourites}>
                 <IconButton
                   bg="transparent"
                   _hover={{ bg: "transparent" }}
@@ -46,16 +64,38 @@ export const Navigation = () => {
                   icon={<HeartIcon fill="transparent" stroke="#A9ADAC" />}
                 />
               </Link>
-              <Link href={meQuery.isSuccess ? "/account" : "/login"}>
-                <IconButton
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
                   bg="transparent"
                   _hover={{ bg: "transparent" }}
-                  aria-label="Konto"
+                  _active={{ bg: "transparent" }}
                   icon={<UserIcon />}
                 />
-              </Link>
+                <MenuList>
+                  <MenuItem as={Link} href={pageMap.account}>
+                    Moje konto
+                  </MenuItem>
+                  <MenuItem as={Link} href={pageMap.myAuctions}>
+                    Moje aukcje
+                  </MenuItem>
+                  <MenuItem as={Link} href={pageMap.myProducts}>
+                    Moje produkty
+                  </MenuItem>
+                  {meQuery.isSuccess ? (
+                    <MenuItem onClick={handleLogout}>Wyloguj</MenuItem>
+                  ) : (
+                    <MenuItem as={Link} href={pageMap.login}>
+                      Zaloguj się
+                    </MenuItem>
+                  )}
+                </MenuList>
+              </Menu>
             </div>
-            <Button px="10">WYSTAW</Button>
+            <Link href={pageMap.new}>
+              <Button px="10">WYSTAW</Button>
+            </Link>
           </div>
         </div>
         <div className="block lg:hidden">
