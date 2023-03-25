@@ -14,6 +14,22 @@ interface Props {
 export const AuctionCard = ({ data }: Props) => {
   const [isLiked, setIsLiked] = React.useState(false)
 
+  const chanceVariationPlural = new Intl.PluralRules("pl")
+
+  const pluralSuffixes = new Map([
+    ["one", "osoba"],
+    ["few", "osoby"],
+    ["many", "osób"],
+  ])
+
+  const formatVarations = (n: number) => {
+    const rule = chanceVariationPlural.select(n)
+    const suffix = pluralSuffixes.get(rule)
+    return `${n} ${suffix}`
+  }
+
+  // console.log(formatVarations(5))
+
   return (
     <div className="bg-white w-80 shadow-lg rounded-xl overflow-hidden relative">
       <button
@@ -53,7 +69,7 @@ export const AuctionCard = ({ data }: Props) => {
             <p className="flex gap-1 items-center">
               <AuctionIcon className="w-5 h-5" />
               {data.bidders
-                ? `${data.bidders} osób licytuje`
+                ? `${formatVarations(data.bidders)} licytuje`
                 : "Licytuj jako pierwszy!"}
             </p>
           </div>
